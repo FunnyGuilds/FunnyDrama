@@ -48,7 +48,6 @@ class DramaController(
             ResponseEntity.badRequest().body(DramaError("dramas should be between 1 and 100"))
         } else ResponseEntity.ok((0 until dramas)
             .map { DramaResponse(dramaProvider.create()) }
-            .toList()
         )
     }
 }

@@ -19,7 +19,7 @@ Kotlin driven drama generator prodiving daily drama for Bookkity discord server
 
 ## API
 
-Public instance available at [https://drama.funnyguilds.net](drama.funnyguilds.net)
+Public instance available at [drama.funnyguilds.net](https://drama.funnyguilds.net)
 
 `GET /api/v1/drama/create`
 ```json
