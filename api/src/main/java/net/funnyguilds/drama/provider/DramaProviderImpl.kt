@@ -46,7 +46,7 @@ class DramaProviderImpl(
         var sentence = sentences[random.nextInt(sentences.size)]
 
         val matcher = FIELD_PATTERN.matcher(sentence)
-        val alreadyUsed: MutableSet<String> = HashSet()
+        val alreadyUsed = hashSetOf<String>()
 
         while (matcher.find()) {
 
