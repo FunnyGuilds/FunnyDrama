@@ -1,5 +1,5 @@
-package net.funnyguilds.drama.provider;
+package net.funnyguilds.drama.provider
 
-public interface DramaProvider {
-    String create();
+interface DramaProvider {
+    fun create(): String
 }

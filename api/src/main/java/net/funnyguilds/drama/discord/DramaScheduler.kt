@@ -1,20 +1,20 @@
-package net.funnyguilds.drama.discord;
+package net.funnyguilds.drama.discord
 
-import net.funnyguilds.drama.config.DiscordConfig;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Service;
+import net.funnyguilds.drama.config.DiscordConfig
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.scheduling.annotation.EnableScheduling
+import org.springframework.scheduling.annotation.Scheduled
+import org.springframework.stereotype.Service
 
 @Service
 @EnableScheduling
-public class DramaScheduler {
+class DramaScheduler {
 
-    @Autowired private DiscordConfig discordConfig;
-    @Autowired private DiscordDramaProvider discordDramaProvider;
+    @Autowired private lateinit var discordConfig: DiscordConfig
+    @Autowired private lateinit var discordDramaProvider: DiscordDramaProvider
 
     @Scheduled(cron = "0 0 0 * * *")
-    public void midnightDrama() {
-        this.discordConfig.getMidnightDramaHooks().forEach(this.discordDramaProvider::dispatchWebhook);
+    fun midnightDrama() {
+        discordConfig.midnightDramaHooks.forEach { url -> discordDramaProvider.dispatchWebhook(url) }
     }
 }
