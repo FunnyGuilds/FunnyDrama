@@ -29,7 +29,8 @@ class DramaConfig : OkaeriConfig() {
         "people" to listOf(
             "greg", "MrGregorix", "Dzikoysk", "Daffit", "GotoFinal", "PinkLolicorn", "CDFN", "Oksi",
             "Wvaffle", "kamcio96", "junior", "Peridot", "Rekseto", "Rivendell", "Rollczi", "szymex73",
-            "insertt", "makub", "Immutable", "crejk", "bopke", "bobekrobal", "kacperduras"
+            "insertt", "makub", "Immutable", "crejk", "bopke", "bobekrobal", "kacperduras", "NorthPL93",
+            "musib spieler"
         ),
         "sites" to listOf(
             "Bookkity", "Okaeri Community", "okaeri.eu", "manager.okaeri.eu", "funnyguilds.dzikoysk.net",
