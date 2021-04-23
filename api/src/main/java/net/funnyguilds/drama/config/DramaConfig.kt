@@ -28,7 +28,7 @@ class DramaConfig : OkaeriConfig() {
     var staticElements: MutableMap<String, List<String>> = linkedMapOf(
         "people" to listOf(
             "greg", "MrGregorix", "Dzikoysk", "Daffit", "GotoFinal", "PinkLolicorn", "CDFN", "Oksi",
-            "Wvaffle", "kamcio96", "junior", "Peridot", "Rekseto", "Rivendell", "Rollczi", "szymex73",
+            "wvffle", "kamcio96", "junior", "Peridot", "Rekseto", "Rivendell", "Rollczi", "szymex73",
             "insertt", "makub", "Immutable", "crejk", "bopke", "bobekrobal", "kacperduras", "NorthPL93",
             "musib spieler"
         ),
