@@ -32,6 +32,6 @@ class DramaScheduler {
 
     @Scheduled(cron = "0 0 0 * * *")
     fun midnightDrama() {
-        discordConfig.midnightDramaHooks.forEach { url -> discordDramaProvider.dispatchWebhook(url) }
+        discordConfig.midnightDramaHooks.forEach(discordDramaProvider::dispatchWebhook)
     }
 }

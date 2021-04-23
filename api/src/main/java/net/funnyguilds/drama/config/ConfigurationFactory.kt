@@ -28,7 +28,7 @@ import java.io.File
 class ConfigurationFactory {
 
     fun <T : OkaeriConfig> createAndLoadConfig(clazz: Class<T>, bindFile: File): T {
-        return ConfigManager.create(clazz) { it: OkaeriConfig ->
+        return ConfigManager.create(clazz) {
             it.withConfigurer(OkaeriValidator(HjsonConfigurer(), true))
             it.withBindFile(bindFile)
             it.saveDefaults()
