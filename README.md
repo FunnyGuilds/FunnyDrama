@@ -1,9 +1,9 @@
 # Funny Drama
 
-![License](https://img.shields.io/github/license/FunnyGuilds\funnydrama)
-![Total lines](https://img.shields.io/tokei/lines/github/FunnyGuilds\funnydrama)
-![Repo size](https://img.shields.io/github/repo-size/FunnyGuilds\funnydrama)
-![Contributors](https://img.shields.io/github/contributors/FunnyGuilds\funnydrama)
+![License](https://img.shields.io/github/license/FunnyGuilds/FunnyDrama)
+![Total lines](https://img.shields.io/tokei/lines/github/FunnyGuilds/FunnyDrama)
+![Repo size](https://img.shields.io/github/repo-size/FunnyGuilds/FunnyDrama)
+![Contributors](https://img.shields.io/github/contributors/FunnyGuilds/FunnyDrama)
 
 Kotlin driven drama generator prodiving daily drama for Bookkity discord server
 
