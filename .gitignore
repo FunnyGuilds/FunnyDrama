@@ -1,0 +1,5 @@
+discord.hjson
+drama.hjson
+*.iml
+target/
+.idea/
