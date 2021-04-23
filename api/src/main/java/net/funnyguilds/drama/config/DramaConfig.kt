@@ -63,7 +63,8 @@ class DramaConfig : OkaeriConfig() {
         ),
         "badsoft" to listOf(
             "malware", "spyware", "adware", "DRM", "viruses", "trojans", "keyloggers", "stolen code", "easter eggs",
-            "potential login stealers", "adf.ly links", "bad code", "stolen assets", "malicious code", "secret backdoors"
+            "potential login stealers", "adf.ly links", "bad code", "stolen assets", "malicious code", "secret backdoors",
+            "Lombok"
         ),
         "drama" to listOf(
             "bugs", "crashes", "drama", "lots of drama", "imbalance", "pain and suffering", "piracy", "adf.ly"
@@ -95,10 +96,24 @@ class DramaConfig : OkaeriConfig() {
         ),
         "enormous" to listOf(
             "big", "large", "huge", "gigantic", "enormous"
+        ),
+        "mcversion" to listOf(
+            "1.6.4", "1.7.2", "1.8.8", "1.9.4", "1.10.2", "1.11.2", "1.12.2", "1.13.2", "1.14.4", "1.15.2", "1.16.5"
+        ),
+        "channels" to listOf(
+            "#general", "#coding", "#support", "#secret", "#chinskie"
         )
     )
 
     var sentences = listOf(
+        "[people] removes all channels except [channels]",
+        "[people] posts to replace [function] with [function] in [things]",
+        "[people] accidentialy removes the [branches] branch",
+        "[people] accidentialy removes the [branches] branch of [things]",
+        "[poeple] threatens to [ac1] [people] until they add support for Minecraft [mcversion]",
+        "Last update by [people] causes [things] to run [worse] on Minecraft [mcversion]",
+        "[people] makes change in [classes] making it incompatible with Minecraft [mcversion]",
+        "[people] says [things] will go up in smoke",
         "[people] launched a DoS attack on the website of [things]",
         "[sites] urges everyone to stop using [things]",
         "After a [enormous] amount of requests, [packs] removes [things]",
