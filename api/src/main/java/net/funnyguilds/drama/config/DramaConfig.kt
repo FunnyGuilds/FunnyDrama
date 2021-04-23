@@ -27,7 +27,7 @@ class DramaConfig : OkaeriConfig() {
 
     var staticElements: MutableMap<String, List<String>> = linkedMapOf(
         "people" to listOf(
-            "Greg", "MrGregorix", "Dzikoysk", "Daffit", "GotoFinal", "PinkLolicorn", "CDFN", "Oksi",
+            "greg", "MrGregorix", "Dzikoysk", "Daffit", "GotoFinal", "PinkLolicorn", "CDFN", "Oksi",
             "Wvaffle", "kamcio96", "junior", "Peridot", "Rekseto", "Rivendell", "Rollczi", "szymex73",
             "insertt", "makub", "Immutable", "crejk", "bopke", "bobekrobal", "kacperduras"
         ),
@@ -43,7 +43,7 @@ class DramaConfig : OkaeriConfig() {
             "NovaGuilds", "SklepMC", "TopkaMC", "NoProxy", "AiCensor"
         ),
         "function" to listOf(
-            "Gotosoft libraries", "Gregsoft libraries", "Okaeri libraries", "Panda libraries", "PlaceholderAPI support", "PAPI support", "HolographicDisplays support",
+            "GotoSoft libraries", "GregSoft libraries", "Okaeri libraries", "Panda libraries", "PlaceholderAPI support", "PAPI support", "HolographicDisplays support",
             "new configuration format", "new database backend", "bloated source parts", "untrusted libraries", "less drama", "more drama"
         ),
         "adj" to listOf(
