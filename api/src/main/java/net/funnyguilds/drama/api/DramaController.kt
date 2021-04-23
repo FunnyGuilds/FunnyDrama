@@ -46,7 +46,7 @@ class DramaController {
     fun dramaCreateMultiple(@PathVariable dramas: Int): ResponseEntity<*> {
         return if (dramas < 1 || dramas > 100) {
             ResponseEntity.badRequest().body(DramaError("dramas should be between 1 and 100"))
-        } else ResponseEntity.ok((0..dramas)
+        } else ResponseEntity.ok((0 until dramas)
             .map { DramaResponse(dramaProvider.create()) }
             .toList()
         )
