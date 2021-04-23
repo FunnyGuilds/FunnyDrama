@@ -29,14 +29,14 @@ class DramaConfig : OkaeriConfig() {
         "people" to listOf(
             "Greg", "MrGregorix", "Dzikoysk", "Daffit", "GotoFinal", "PinkLolicorn", "CDFN", "Oksi",
             "Wvaffle", "kamcio96", "junior", "Peridot", "Rekseto", "Rivendell", "Rollczi", "szymex73",
-            "insertt", "makub", "Immutable"
+            "insertt", "makub", "Immutable", "crejk", "bopke", "bobekrobal", "kacperduras"
         ),
         "sites" to listOf(
             "Bookkity", "Okaeri Community", "okaeri.eu", "manager.okaeri.eu", "funnyguilds.dzikoysk.net",
             "funnyguilds.net", "panda-lang.org", "blog.gotofinal.com"
         ),
         "packs" to listOf(
-            "maven central", "spigotmc index", "crates.io", "npm", "okaeri's maven"
+            "maven central", "spigotmc index", "crates.io", "npm", "okaeri's maven", "reposilite", "panda's repo"
         ),
         "things" to listOf(
             "FunnyGuilds", "FunnyOS", "FunnyCommands", "Panda Language", "dzikoysk/dependency-injector", "panda-utilities", "Light", "Skript",
