@@ -24,6 +24,6 @@ Public instance available at [drama-api.funnyguilds.net](https://drama-api.funny
 `GET /api/v1/drama/create`
 ```json
 {
-  "drama": "Wvaffle is found to secretly like NoProxy"
+  "drama": "wvffle is found to secretly like NoProxy"
 }
 ```
