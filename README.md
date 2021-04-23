@@ -5,7 +5,7 @@
 ![Repo size](https://img.shields.io/github/repo-size/FunnyGuilds/FunnyDrama)
 ![Contributors](https://img.shields.io/github/contributors/FunnyGuilds/FunnyDrama)
 
-Kotlin driven drama generator prodiving daily drama for Bookkity discord server
+Kotlin driven [drama generator](https://drama.funnyguilds.net) prodiving daily drama for Bookkity discord server
 
 ## Example Dramas
 
@@ -19,9 +19,11 @@ Kotlin driven drama generator prodiving daily drama for Bookkity discord server
 
 ## API
 
-Public instance available at [drama.funnyguilds.net](https://drama.funnyguilds.net)
+Public instance available at [drama-api.funnyguilds.net](https://drama-api.funnyguilds.net)
 
 `GET /api/v1/drama/create`
 ```json
-{"drama":"Wvaffle is found to secretly like NoProxy"}
+{
+  "drama": "Wvaffle is found to secretly like NoProxy"
+}
 ```
