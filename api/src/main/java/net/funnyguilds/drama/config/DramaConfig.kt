@@ -107,6 +107,7 @@ class DramaConfig : OkaeriConfig() {
 
     var sentences = listOf(
         "[people] removes all channels except [channels]",
+        "[people] wants to [ac1] [people] saying they only use [channels] channel",
         "[people] posts to replace [function] with [function] in [things]",
         "[people] accidentialy removes the [branches] branch",
         "[people] accidentialy removes the [branches] branch of [things]",
