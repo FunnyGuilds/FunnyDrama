@@ -1,5 +1,5 @@
-package net.funnyguilds.drama.discord;
+package net.funnyguilds.drama.discord
 
-public interface DiscordDramaProvider {
-    void dispatchWebhook(String url);
+interface DiscordDramaProvider {
+    fun dispatchWebhook(url: String)
 }

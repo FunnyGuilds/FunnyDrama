@@ -1,66 +1,60 @@
-package net.funnyguilds.drama.provider;
+package net.funnyguilds.drama.provider
 
-import lombok.RequiredArgsConstructor;
-import net.funnyguilds.drama.config.DramaConfig;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import net.funnyguilds.drama.config.DramaConfig
+import org.slf4j.LoggerFactory
+import java.util.concurrent.ThreadLocalRandom
+import java.util.regex.Matcher
+import java.util.regex.Pattern
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.ThreadLocalRandom;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+class DramaProviderImpl(
+    val config: DramaConfig
+) : DramaProvider {
 
-@RequiredArgsConstructor
-public class DramaProviderImpl implements DramaProvider {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(DramaProviderImpl.class);
-    private static final Pattern FIELD_PATTERN = Pattern.compile("\\[(?<name>[a-zA-Z0-9_]+)\\]");
-
-    private final DramaConfig config;
-
-    @Override
-    public String create() {
-        try {
-            return this.tryCreate();
-        } catch (DramaProviderException exception) {
-            LOGGER.info("failed #tryCreate: " + exception.getMessage());
-            return this.create();
+    override fun create(): String {
+        return try {
+            tryCreate()
+        } catch (exception: DramaProviderException) {
+            LOGGER.info("failed #tryCreate: " + exception.message)
+            create()
         }
     }
 
-    public String tryCreate() throws DramaProviderException {
+    @Throws(DramaProviderException::class)
+    fun tryCreate(): String {
 
-        Map<String, List<String>> elements = this.config.getStaticElements();
-        List<String> sentences = this.config.getSentences();
+        val elements: Map<String, List<String>> = config.staticElements
+        val sentences: List<String> = config.sentences
 
-        ThreadLocalRandom random = ThreadLocalRandom.current();
-        String sentence = sentences.get(random.nextInt(sentences.size()));
+        val random = ThreadLocalRandom.current()
+        var sentence = sentences[random.nextInt(sentences.size)]
 
-        Matcher matcher = FIELD_PATTERN.matcher(sentence);
-        Set<String> alreadyUsed = new HashSet<>();
+        val matcher = FIELD_PATTERN.matcher(sentence)
+        val alreadyUsed: MutableSet<String> = HashSet()
 
         while (matcher.find()) {
 
-            String fieldFull = matcher.group(0);
-            String fieldType = matcher.group("name");
+            val fieldFull = matcher.group(0)
+            val fieldType = matcher.group("name")
 
             if (!elements.containsKey(fieldType)) {
-                throw new DramaProviderException("cannot find values for field of type: " + fieldType + " [available: " + String.join(", ", elements.keySet()) + "]");
+                throw DramaProviderException("cannot find values for field of type: " + fieldType + " [available: " + java.lang.String.join(", ", elements.keys) + "]")
             }
 
-            List<String> fieldElements = elements.get(fieldType);
-            String randomValue = fieldElements.get(random.nextInt(fieldElements.size()));
+            val fieldElements = elements[fieldType]!!
+            var randomValue = fieldElements[random.nextInt(fieldElements.size)]
 
             while (!alreadyUsed.add(randomValue)) {
-                randomValue = fieldElements.get(random.nextInt(fieldElements.size()));
+                randomValue = fieldElements[random.nextInt(fieldElements.size)]
             }
 
-            sentence = sentence.replaceFirst(Pattern.quote(fieldFull), Matcher.quoteReplacement(randomValue));
+            sentence = sentence.replaceFirst(Pattern.quote(fieldFull).toRegex(), Matcher.quoteReplacement(randomValue))
         }
 
-        return sentence;
+        return sentence
+    }
+
+    companion object {
+        private val LOGGER = LoggerFactory.getLogger(DramaProviderImpl::class.java)
+        private val FIELD_PATTERN = Pattern.compile("\\[(?<name>[a-zA-Z0-9_]+)\\]")
     }
 }

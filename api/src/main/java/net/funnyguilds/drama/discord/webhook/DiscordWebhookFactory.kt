@@ -1,18 +1,11 @@
-package net.funnyguilds.drama.discord.webhook;
+package net.funnyguilds.drama.discord.webhook
 
-import org.springframework.stereotype.Service;
-
-import java.util.Collections;
+import org.springframework.stereotype.Service
 
 @Service
-public class DiscordWebhookFactory {
+class DiscordWebhookFactory {
 
-    public DiscordWebhook createDramaAlert(String drama) {
-        DiscordWebhook webhook = new DiscordWebhook();
-        DiscordWebhooksEmbed embed = new DiscordWebhooksEmbed();
-        embed.setTitle("Latest Drama News");
-        embed.setDescription(drama);
-        webhook.setEmbeds(Collections.singletonList(embed));
-        return webhook;
+    fun createDramaAlert(drama: String): DiscordWebhook {
+        return DiscordWebhook(null, listOf(DiscordWebhooksEmbed("Latest Drama News", drama)))
     }
 }

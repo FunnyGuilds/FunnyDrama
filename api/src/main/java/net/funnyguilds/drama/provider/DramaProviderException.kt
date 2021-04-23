@@ -1,23 +1,9 @@
-package net.funnyguilds.drama.provider;
+package net.funnyguilds.drama.provider
 
-public class DramaProviderException extends RuntimeException {
-
-    public DramaProviderException() {
-    }
-
-    public DramaProviderException(String message) {
-        super(message);
-    }
-
-    public DramaProviderException(String message, Throwable cause) {
-        super(message, cause);
-    }
-
-    public DramaProviderException(Throwable cause) {
-        super(cause);
-    }
-
-    public DramaProviderException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
-        super(message, cause, enableSuppression, writableStackTrace);
-    }
+class DramaProviderException : RuntimeException {
+    constructor()
+    constructor(message: String) : super(message)
+    constructor(message: String, cause: Throwable) : super(message, cause)
+    constructor(cause: Throwable) : super(cause)
+    constructor(message: String, cause: Throwable, enableSuppression: Boolean, writableStackTrace: Boolean) : super(message, cause, enableSuppression, writableStackTrace)
 }
