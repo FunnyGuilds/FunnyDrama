@@ -28,8 +28,8 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/api/v1/drama")
 class DramaController(
-    val dramaProvider: DramaProvider,
-    val dramaConfig: DramaConfig
+    private val dramaProvider: DramaProvider,
+    private val dramaConfig: DramaConfig
 ) {
 
     @GetMapping

@@ -24,7 +24,7 @@ import java.util.regex.Matcher
 import java.util.regex.Pattern
 
 class DramaProviderImpl(
-    val config: DramaConfig
+    private val config: DramaConfig
 ) : DramaProvider {
 
     override fun create(): String {

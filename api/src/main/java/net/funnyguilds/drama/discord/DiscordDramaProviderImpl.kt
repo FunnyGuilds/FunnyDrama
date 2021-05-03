@@ -23,9 +23,9 @@ import net.funnyguilds.drama.provider.DramaProvider
 import org.springframework.http.MediaType
 
 class DiscordDramaProviderImpl(
-    val dramaProvider: DramaProvider,
-    val unirest: UnirestInstance,
-    val discordWebhookFactory: DiscordWebhookFactory
+    private val dramaProvider: DramaProvider,
+    private val unirest: UnirestInstance,
+    private val discordWebhookFactory: DiscordWebhookFactory
 ) : DiscordDramaProvider {
 
     override fun dispatchWebhook(url: String) {
