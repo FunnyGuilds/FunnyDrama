@@ -23,12 +23,13 @@ import eu.okaeri.configs.hjson.HjsonConfigurer
 import eu.okaeri.configs.validator.okaeri.OkaeriValidator
 import org.springframework.stereotype.Service
 import java.io.File
+import kotlin.reflect.KClass
 
 @Service
 class ConfigurationFactory {
 
-    fun <T : OkaeriConfig> createAndLoadConfig(clazz: Class<T>, bindFile: File): T {
-        return ConfigManager.create(clazz).apply {
+    fun <T : OkaeriConfig> createAndLoadConfig(kClass: KClass<T>, bindFile: File): T {
+        return ConfigManager.create(kClass.java).apply {
             this.withConfigurer(OkaeriValidator(HjsonConfigurer(), true))
             this.withBindFile(bindFile)
             this.saveDefaults()

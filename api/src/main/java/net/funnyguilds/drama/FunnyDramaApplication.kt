@@ -36,7 +36,7 @@ open class FunnyDramaApplication {
 
     @Bean("dramaConfig")
     open fun configureDrama(configurationFactory: ConfigurationFactory): DramaConfig {
-        return configurationFactory.createAndLoadConfig(DramaConfig::class.java, File("drama.hjson"))
+        return configurationFactory.createAndLoadConfig(DramaConfig::class, File("drama.hjson"))
     }
 
     @Bean("dramaProvider")
@@ -46,7 +46,7 @@ open class FunnyDramaApplication {
 
     @Bean("discordConfig")
     open fun configureDiscord(configurationFactory: ConfigurationFactory): DiscordConfig {
-        return configurationFactory.createAndLoadConfig(DiscordConfig::class.java, File("discord.hjson"))
+        return configurationFactory.createAndLoadConfig(DiscordConfig::class, File("discord.hjson"))
     }
 
     @Bean("discordDramaProvider")
