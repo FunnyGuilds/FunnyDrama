@@ -25,8 +25,8 @@ import org.springframework.stereotype.Service
 @Service
 @EnableScheduling
 class DramaScheduler(
-    val discordConfig: DiscordConfig,
-    val discordDramaProvider: DiscordDramaProvider
+    private val discordConfig: DiscordConfig,
+    private val discordDramaProvider: DiscordDramaProvider
 ) {
 
     @Scheduled(cron = "0 0 0 * * *")
