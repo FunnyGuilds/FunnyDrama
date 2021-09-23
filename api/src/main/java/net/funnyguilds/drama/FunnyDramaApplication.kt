@@ -29,14 +29,14 @@ import net.funnyguilds.drama.provider.DramaProviderImpl
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 import org.springframework.context.annotation.Bean
-import java.io.File
+import kotlin.io.path.Path
 
 @SpringBootApplication
 open class FunnyDramaApplication {
 
     @Bean("dramaConfig")
     open fun configureDrama(configurationFactory: ConfigurationFactory): DramaConfig {
-        return configurationFactory.createAndLoadConfig(DramaConfig::class, File("drama.hjson"))
+        return configurationFactory.createAndLoadConfig(DramaConfig::class, Path("drama.hjson"))
     }
 
     @Bean("dramaProvider")
@@ -46,7 +46,7 @@ open class FunnyDramaApplication {
 
     @Bean("discordConfig")
     open fun configureDiscord(configurationFactory: ConfigurationFactory): DiscordConfig {
-        return configurationFactory.createAndLoadConfig(DiscordConfig::class, File("discord.hjson"))
+        return configurationFactory.createAndLoadConfig(DiscordConfig::class, Path("discord.hjson"))
     }
 
     @Bean("discordDramaProvider")
