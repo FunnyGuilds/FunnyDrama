@@ -30,7 +30,7 @@ class DramaConfig : OkaeriConfig() {
             "greg", "MrGregorix", "Dzikoysk", "Daffit", "GotoFinal", "PinkLolicorn", "CDFN", "Oksi",
             "wvffle", "kamcio96", "junior", "Peridot", "Rekseto", "Rivendell", "Rollczi", "szymex73",
             "insertt", "makub", "Immutable", "crejk", "bopke", "bobekrobal", "kacperduras", "NorthPL93",
-            "musib spieler", "Kamilkime", "error", "Maciuś", "kernel", "WcaleNieWolny", "TheMolkaPL"
+            "musib spieler", "Kamilkime", "error", "Maciuś", "kernel", "TheMolkaPL"
         ),
         "sites" to listOf(
             "Bookkity", "Okaeri Community", "okaeri.eu", "manager.okaeri.eu", "funnyguilds.dzikoysk.net",
