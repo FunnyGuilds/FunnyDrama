@@ -30,7 +30,7 @@ class DramaConfig : OkaeriConfig() {
             "greg", "MrGregorix", "Dzikoysk", "Daffit", "GotoFinal", "PinkLolicorn", "CDFN", "Oksi",
             "wvffle", "kamcio96", "junior", "Peridot", "Rekseto", "Rivendell", "Rollczi", "szymex73",
             "insertt", "makub", "Immutable", "crejk", "bopke", "bobekrobal", "kacperduras", "NorthPL93",
-            "musib spieler", "Kamilkime", "error", "Maciuś", "kernel", "TheMolkaPL", "zrdzn"
+            "musib spieler", "Kamilkime", "error", "Maciuś", "kernel", "TheMolkaPL", "zrdzn", "WcaleNieWolny"
         ),
         "sites" to listOf(
             "Bookkity", "Okaeri Community", "okaeri.eu", "manager.okaeri.eu", "funnyguilds.dzikoysk.net",
@@ -40,7 +40,7 @@ class DramaConfig : OkaeriConfig() {
             "maven central", "spigotmc index", "crates.io", "npm", "okaeri's maven", "reposilite", "panda's repo"
         ),
         "things" to listOf(
-            "FunnyGuilds", "FunnyOS", "FunnyCommands", "FunnySkAddon", "Panda Language", "dzikoysk/dependency-injector", "panda-utilities", "Light", "Skript",
+            "FunnyGuilds", "FunnyOS", "FunnyCommands", "FunnySkAddon", "FunnySectors", "Panda Language", "dzikoysk/dependency-injector", "panda-utilities", "Light", "Skript",
             "NovaGuilds", "SklepMC", "TopkaMC", "NoProxy", "AiCensor"
         ),
         "function" to listOf(
