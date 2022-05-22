@@ -5,7 +5,7 @@
 ![Repo size](https://img.shields.io/github/repo-size/FunnyGuilds/FunnyDrama)
 ![Contributors](https://img.shields.io/github/contributors/FunnyGuilds/FunnyDrama)
 
-Kotlin driven [drama generator](https://drama.funnyguilds.net) prodiving daily drama for Bookkity discord server
+[n8n](https://n8n.io/) driven drama generator providing daily drama for Bookkity discord server
 
 ## Example Dramas
 
@@ -16,14 +16,3 @@ Kotlin driven [drama generator](https://drama.funnyguilds.net) prodiving daily d
 > Fans of panda-utilities and SklepMC argue on Bookkity
 
 > Skript breaks FunnyCommands support in FunnyOS
-
-## API
-
-Public instance available at [drama-api.funnyguilds.net](https://drama-api.funnyguilds.net)
-
-`GET /api/v1/drama/create`
-```json
-{
-  "drama": "wvffle is found to secretly like NoProxy"
-}
-```
