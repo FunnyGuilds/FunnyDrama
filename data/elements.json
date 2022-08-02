@@ -267,10 +267,10 @@
     "1.19"
   ],
   "channels": [
-    "#general",
-    "#coding",
-    "#support",
-    "#secret",
+    "#main",
+    "#creative",
+    "#help",
+    "#underground",
     "#chinskie"
   ]
 }
