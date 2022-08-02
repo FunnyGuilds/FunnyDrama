@@ -67,7 +67,8 @@
     "SklepMC",
     "TopkaMC",
     "NoProxy",
-    "AiCensor"
+    "AiCensor",
+    "Titanium"
   ],
   "function": [
     "GotoSoft libraries",
