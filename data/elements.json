@@ -268,10 +268,10 @@
     "1.19.2"
   ],
   "channels": [
-    "#general",
-    "#coding",
-    "#support",
-    "#secret",
+    "#main",
+    "#creative",
+    "#help",
+    "#underground",
     "#chinskie"
   ]
 }
