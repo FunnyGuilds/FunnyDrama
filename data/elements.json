@@ -31,7 +31,8 @@
     "kernel",
     "TheMolkaPL",
     "zrdzn",
-    "WcaleNieWolny"
+    "WcaleNieWolny",
+    "Szczurowsky"
   ],
   "sites": [
     "Bookkity",
@@ -68,7 +69,8 @@
     "TopkaMC",
     "NoProxy",
     "AiCensor",
-    "TitaniumMC"
+    "TitaniumMC",
+    "LiteCommands"
   ],
   "function": [
     "GotoSoft libraries",
@@ -112,7 +114,8 @@
   ],
   "branches": [
     "master",
-    "5.0"
+    "5.0",
+    "6.0"
   ],
   "classes": [
     "FunnyGuildsLogger",
@@ -133,7 +136,8 @@
     "DummyGlobalUpdateRequest",
     "IndividualPrefixManager",
     "Guild",
-    "FunnybinRequest"
+    "FunnybinRequest",
+    "SecurityUtils"
   ],
   "badsoft": [
     "malware",
@@ -266,12 +270,12 @@
     "1.16.5",
     "1.17.1",
     "1.18.2",
-    "1.19.2"
+    "1.19.4"
   ],
   "channels": [
     "#main",
-    "#creative",
     "#help",
+    "#coding",
     "#underground",
     "#chinskie"
   ]
