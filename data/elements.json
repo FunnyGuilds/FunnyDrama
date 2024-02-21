@@ -1,11 +1,9 @@
 {
   "people": [
     "greg",
-    "MrGregorix",
-    "Dzikoysk",
+    "dzikoysk",
     "Daffit",
     "GotoFinal",
-    "PinkLolicorn",
     "CDFN",
     "Oksi",
     "wvffle",
@@ -13,18 +11,14 @@
     "junior",
     "Peridot",
     "Rekseto",
-    "Rivendell",
     "Rollczi",
     "szymex73",
     "insertt",
     "makub",
-    "Immutable",
     "crejk",
     "bopke",
-    "bobekrobal",
     "kacperduras",
     "NorthPL93",
-    "musib spieler",
     "Kamilkime",
     "error",
     "Maciuś",
@@ -33,7 +27,9 @@
     "zrdzn",
     "WcaleNieWolny",
     "Szczurowsky",
-    "oskarscot"
+    "oskarscot",
+    "pieroshka",
+    "nwse"
   ],
   "sites": [
     "Bookkity",
@@ -278,6 +274,9 @@
     "#help",
     "#coding",
     "#underground",
+    "#shared",
+    "#ceo",
+    "#news",
     "#chinskie"
   ]
 }
