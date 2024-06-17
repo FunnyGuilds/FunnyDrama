@@ -57,7 +57,7 @@
         },
         {
             "parameters": {
-                "functionCode": "// noinspection PointlessBitwiseExpressionJS\n\nconst sentences = $node[\"Fetch sentences.json\"].json;\nconst elements = $node[\"Fetch elements.json\"].json;\nconst fieldPattern = /\\[(?<name>[a-zA-Z0-9_]+)\\]/;\n\nconst alreadyUsed = [];\nlet sentence = sentences[Math.random() * sentences.length | 0];\nlet matcher;\n\nwhile ((matcher = fieldPattern.exec(sentence)) !== null) {\n\n    const fieldFull = matcher[0];\n    const fieldType = matcher[1];\n\n    if (!(fieldType in elements)) {\n        return {sentence: `Unknown element type: ${fieldType}`}\n    }\n\n    let randomValue;\n    do {\n        randomValue = elements[fieldType][Math.random() * elements[fieldType].length | 0];\n    }\n    while (randomValue in alreadyUsed);\n\n    alreadyUsed.push(randomValue);\n    sentence = sentence.replace(fieldFull, randomValue);\n}\n\nreturn {sentence};\n"
+                "functionCode": "// noinspection PointlessBitwiseExpressionJS\n\nconst sentences = $(\"Fetch sentences.json\").first().json;\nconst elements = $(\"Fetch elements.json\").first().json;\nconst fieldPattern = /\\[(?<name>[a-zA-Z0-9_]+)\\]/;\n\nconst alreadyUsed = [];\nlet sentence = sentences[Math.random() * sentences.length | 0];\nlet matcher;\n\nwhile ((matcher = fieldPattern.exec(sentence)) !== null) {\n\n    const fieldFull = matcher[0];\n    const fieldType = matcher[1];\n\n    if (!(fieldType in elements)) {\n        return {sentence: `Unknown element type: ${fieldType}`}\n    }\n\n    let randomValue;\n    do {\n        randomValue = elements[fieldType][Math.random() * elements[fieldType].length | 0];\n    }\n    while (randomValue in alreadyUsed);\n\n    alreadyUsed.push(randomValue);\n    sentence = sentence.replace(fieldFull, randomValue);\n}\n\nreturn {sentence};"
             },
             "name": "Generate drama",
             "type": "n8n-nodes-base.function",
@@ -72,7 +72,7 @@
                 "webhookUri": "WEBHOOK_URL",
                 "text": "=",
                 "options": {
-                    "embeds": "=[{\n\t\"title\": \"Latest Drama News\",\n\t\"description\": {{JSON.stringify($node['Generate drama'].json['sentence'])}},\n\t\"color\": 16723502\n}]"
+                    "embeds": "=[{\n\t\"title\": \"Latest Drama News\",\n\t\"description\": {{JSON.stringify($('Generate drama').first().json['sentence'])}},\n\t\"color\": 16723502\n}]"
                 }
             },
             "name": "Dispatch webhook",
@@ -85,17 +85,6 @@
         }
     ],
     "connections": {
-        "Fetch elements.json": {
-            "main": [
-                [
-                    {
-                        "node": "Fetch sentences.json",
-                        "type": "main",
-                        "index": 0
-                    }
-                ]
-            ]
-        },
         "Start": {
             "main": [
                 [
@@ -112,6 +101,17 @@
                 [
                     {
                         "node": "Fetch elements.json",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Fetch elements.json": {
+            "main": [
+                [
+                    {
+                        "node": "Fetch sentences.json",
                         "type": "main",
                         "index": 0
                     }
@@ -140,8 +140,5 @@
                 ]
             ]
         }
-    },
-    "active": true,
-    "settings": {},
-    "id": 1
+    }
 }
