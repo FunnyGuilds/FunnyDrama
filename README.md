@@ -11,10 +11,12 @@
 
 ## Example Dramas
 
-> PinkLolicorn confirms NovaGuilds causes pain and suffering
+> nwse finds Lombok in FunnyOS
 
-> GotoFinal complains about NoProxy breaking Skript
+> Daffit is found to secretly like FunnySectors
 
-> Fans of panda-utilities and SklepMC argue on Bookkity
+> NorthPL93 sues FunnyOS developers
 
-> Skript breaks FunnyCommands support in FunnyOS
+> Maciuś and kernel argue about Panda Language
+
+> Szczurowsky tweets kacperduras's attitude is not enterprise
