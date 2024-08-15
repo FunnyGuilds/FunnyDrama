@@ -104,5 +104,7 @@
   "[people] tweaks balance in [things] too much, annoying [people]",
   "[people] [says] [people] is worse than [people]",
   "[people] [says] [things] is [worse] than [things]",
-  "[people] bans [people] from [sites]"
+  "[people] bans [people] from [sites]",
+  "There was an error when processing the data in the dataset",
+  "An unexpected internal error has occurred"
 ]
