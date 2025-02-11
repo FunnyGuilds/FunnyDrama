@@ -2,7 +2,7 @@
   "people": [
     "greg",
     "dzikoysk",
-    "Daffit",
+    "Sandra",
     "GotoFinal",
     "CDFN",
     "Oksi",
@@ -34,8 +34,8 @@
   "sites": [
     "Bookkity",
     "Okaeri Community",
-    "okaeri.eu",
-    "manager.okaeri.eu",
+    "Okaeri Fans",
+    "okaeri.cloud",
     "funnyguilds.dzikoysk.net",
     "funnyguilds.net",
     "panda-lang.org",
@@ -82,7 +82,9 @@
     "bloated source parts",
     "untrusted libraries",
     "less drama",
-    "more drama"
+    "more drama",
+    "MongoDB support",
+    "XML support"
   ],
   "adj": [
     "bad",
@@ -107,12 +109,14 @@
     "too realistic",
     "not enterprise",
     "not pure",
-    "anti-patternish"
+    "anti-patternish",
+    "woke"
   ],
   "branches": [
     "master",
-    "5.0",
-    "6.0"
+    "4.x",
+    "5.x",
+    "6.x"
   ],
   "classes": [
     "FunnyGuildsLogger",
@@ -153,7 +157,10 @@
     "malicious code",
     "secret backdoors",
     "Lombok",
-    "chat report system"
+    "chat report system",
+    "XML",
+    "diorite-configs-java8",
+    "DEI"
   ],
   "drama": [
     "bugs",
@@ -163,8 +170,8 @@
     "imbalance",
     "pain and suffering",
     "piracy",
-    "adf.ly",
-    "groovy"
+    "wokeness",
+    "lombok"
   ],
   "crash": [
     "crash",
@@ -173,7 +180,8 @@
     "lag",
     "blow up",
     "corrupt chunks",
-    "corrupt worlds"
+    "corrupt worlds",
+    "go woke"
   ],
   "ban": [
     "ban",
@@ -184,7 +192,8 @@
     "whitelist",
     "give admin rights to",
     "shame",
-    "destroy"
+    "destroy",
+    "erase"
   ],
   "code": [
     "code",
@@ -205,7 +214,9 @@
     "faster",
     "slower",
     "more stable",
-    "less buggy"
+    "less buggy",
+    "more woke",
+    "less woke"
   ],
   "ac1": [
     "sue",
@@ -267,16 +278,18 @@
     "1.16.5",
     "1.17.1",
     "1.18.2",
-    "1.19.4"
+    "1.19.4",
+    "1.20.x",
+    "1.21.x"
   ],
   "channels": [
     "#main",
-    "#help",
     "#coding",
     "#underground",
     "#shared",
-    "#ceo",
+    "#playin",
     "#news",
-    "#chinskie"
+    "#help",
+    ","
   ]
 }
