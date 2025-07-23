@@ -11,12 +11,12 @@
 
 ## Example Dramas
 
-> nwse finds Lombok in FunnyOS
+> FunnyTab is not updated for the latest version of Minecraft.
 
-> Daffit is found to secretly like FunnySectors
+> NorthPL93 finds secret backdoors in FunnyCommands
 
-> NorthPL93 sues FunnyOS developers
+> szymex73 complains about Panda Language including bloated source parts
 
-> Maciuś and kernel argue about Panda Language
+> GotoFinal fixes bloated source parts in Panda Language to be unlike FunnyGuilds
 
-> Szczurowsky tweets kacperduras's attitude is not enterprise
+> Sandra confirms FunnyGuilds is literally a serious problem.
