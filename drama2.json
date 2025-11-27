@@ -8,7 +8,7 @@
       "typeVersion": 1,
       "position": [
         -1488,
-        -752
+        -1056
       ],
       "id": "f54a016a-11cb-4dd8-9906-9f372e2075ef"
     },
@@ -17,7 +17,8 @@
         "triggerTimes": {
           "item": [
             {
-              "hour": 0
+              "hour": 0,
+              "minute": 5
             }
           ]
         }
@@ -27,7 +28,7 @@
       "typeVersion": 1,
       "position": [
         -1488,
-        -560
+        -864
       ],
       "id": "47a7c1ed-6bd1-43f9-aae0-2d38f02e99fa"
     },
@@ -40,8 +41,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 1,
       "position": [
-        -1040,
-        -752
+        -816,
+        -960
       ],
       "id": "9eaacbec-ad22-4efb-b1a6-c0facbdb9a3b"
     },
@@ -54,76 +55,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 1,
       "position": [
-        -816,
-        -752
+        -592,
+        -960
       ],
       "id": "4babfbef-099c-4ae4-9d69-17f0996075ce"
-    },
-    {
-      "parameters": {
-        "modelId": {
-          "__rl": true,
-          "value": "gpt-4.1",
-          "mode": "list",
-          "cachedResultName": "GPT-4.1"
-        },
-        "messages": {
-          "values": [
-            {
-              "content": "=Generate a **single-sentence** fictional drama with a blunt, chaotic tone, prioritizing the chat history for inspiration.\n\nCurrent time: {{ (new Date()).toLocaleTimeString() }}\n\n#### **INPUT SOURCES (PRIORITY ORDER)**\n1. **CHAT HISTORY (PRIMARY SOURCE)**\n\n### #main CHANNEL\n{{\n$json.main\n  .map(it => `<${it.author} (${it.ago} ago)> ${it.content}`)\n  .join('\\n')\n}}\n\n### #help CHANNEL\n{{\n$json.help\n  .map(it => `<${it.author} (${it.ago} ago)> ${it.content}`)\n  .join('\\n')\n}}\n\n2. **FALLBACK EXAMPLES (ONLY IF CHAT IS BORING)**\n{{\n$json.dramas\n  .map(drama => `- ${drama}`)\n  .join('\\n')\n}}\n\n- **Scan for:** Fights, dumb takes, panic, or confusion.\n- **If multiple candidates:** Pick only the **stupidest/clusterfuck-iest one**.\n- **Only use ONE element** (e.g., \"config system is broken\" → ignore linked drama like \"x is sleeping again\").\n\n#### **RULES (NON-NEGOTIABLE)**\n1. **ONE TOPIC PER SENTENCE** – No \"and\", \"also\", or list-like drama.\n   - **BAD:** *\"Kamilkime hates DDD, CI is dead, and the PM ghosted us.\"*\n   - **GOOD:** *\"Kamilkime just deleted the ‘forge’ module screaming ‘YOLO’.\"*\n\n2. **CHAOS MULTIPLIER** – Escalate the chosen topic with:\n   - **Sabotage** (e.g., \"rewrote prod SQL in emojis\").\n   - **Public meltdowns** (e.g., \"screamed into the dzikoysk’s DMs\").\n   - **Absurd lies** (e.g., \"deployed a forkbomb to ‘test resilience’\").\n\n3. **STYLE:** {{ $json.dramaStyle }}\n\n#### **OUTPUT FORMAT**\n1. **ISOLATE** one stupid/angry/confused moment from chat/examples.\n2. **NUKE IT** with invented chaos.\n3. **OUTPUT:** *DevOps ‘fixed’ the database by rm -rf / and blamed it on a cosmic ray.*"
-            }
-          ]
-        },
-        "simplify": false,
-        "options": {
-          "maxTokens": 200
-        }
-      },
-      "type": "@n8n/n8n-nodes-langchain.openAi",
-      "typeVersion": 1.8,
-      "position": [
-        -144,
-        -656
-      ],
-      "id": "e5c291bb-c336-4adb-a8c5-6e482facc784",
-      "name": "Generate drama (OpenAI)",
-      "alwaysOutputData": false,
-      "executeOnce": true,
-      "credentials": {
-        "openAiApi": {
-          "id": "gJAu5OoGfege6BTG",
-          "name": "OpenAi account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "authentication": "webhook",
-        "options": {},
-        "embeds": {
-          "values": [
-            {
-              "inputMethod": "json",
-              "json": "={\n  \"title\": \"Latest Drama News\",\n  \"description\": {{ $json.content.toJsonString() }},\n  \"footer\": {\n    \"text\": \"${{ $json.cost || 0 }} ({{ $json.tokens.input }}t in, {{ $json.tokens.output }}t out)\"\n  },\n  \"color\": 16723502\n}"
-            }
-          ]
-        }
-      },
-      "type": "n8n-nodes-base.discord",
-      "typeVersion": 2,
-      "position": [
-        480,
-        -656
-      ],
-      "id": "619cea78-eb85-459b-926d-535aa12638ae",
-      "name": "Dispatch webhook",
-      "webhookId": "92762ff1-c901-48c8-bc62-e2e1e32218d8",
-      "credentials": {
-        "discordWebhookApi": {
-          "id": "LWGbdU34VUZYaFf1",
-          "name": "Discord Webhook account"
-        }
-      }
     },
     {
       "parameters": {
@@ -132,8 +67,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -592,
-        -752
+        -368,
+        -960
       ],
       "id": "673517b5-0719-4b20-b8c5-1c78dc3e507a",
       "name": "Generate Drama",
@@ -144,21 +79,27 @@
         "assignments": {
           "assignments": [
             {
+              "id": "f9d5d320-3a19-4607-a764-10f32f5e28ce",
+              "name": "config",
+              "value": "={{ $('Channel Config').item.json }}",
+              "type": "object"
+            },
+            {
               "id": "88a8a7a9-3bb8-4adc-b0b6-79c7552db592",
               "name": "content",
-              "value": "={{ $json.choices[0].message.content }}",
+              "value": "={{ $json.output[1].content[0].text }}",
               "type": "string"
             },
             {
               "id": "090620a9-bb2f-4ac2-9f3d-a8d5749449fb",
               "name": "cost",
-              "value": "={{ \n  (\n    (\n      ($json.usage.prompt_tokens - $json.usage.prompt_tokens_details.cached_tokens) * 2 + \n      $json.usage.prompt_tokens_details.cached_tokens * 0.5 + \n      $json.usage.completion_tokens * 8\n    ) / 1_000_000\n  )\n}}",
+              "value": "={{ $json.usage.cost }}",
               "type": "number"
             },
             {
               "id": "f22b148a-93fa-436c-851d-38a7c11368b1",
               "name": "tokens",
-              "value": "={\ninput: {{ $json.usage.prompt_tokens }},\ncached: {{ $json.usage.prompt_tokens_details.cached_tokens }},\noutput: {{ $json.usage.completion_tokens }}\n}",
+              "value": "={\ninput: {{ $json.usage.input_tokens }},\ncached: {{ $json.usage.input_tokens_details.cached_tokens }},\noutput: {{ $json.usage.output_tokens }},\nreasoning: {{ $json.usage.output_tokens_details.reasoning_tokens }}\n}",
               "type": "object"
             }
           ]
@@ -168,8 +109,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        256,
-        -656
+        496,
+        -960
       ],
       "id": "0b11af05-0902-4aa7-9a69-fb9bd90e0529",
       "name": "Extract AI Drama"
@@ -182,8 +123,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -592,
-        -944
+        -368,
+        -768
       ],
       "id": "91a5ec4b-1489-46c4-bd4e-c80eba423c64",
       "name": "Generate Style",
@@ -191,209 +132,15 @@
       "executeOnce": true
     },
     {
-      "parameters": {
-        "assignments": {
-          "assignments": [
-            {
-              "id": "ceb5604b-05ff-404b-807b-dbf538f8d6f2",
-              "name": "time",
-              "value": "={{ $json.timestamp }}",
-              "type": "string"
-            },
-            {
-              "id": "c426a597-710b-440c-9d70-9e2cecf50746",
-              "name": "author",
-              "value": "={{ $json.author.global_name }}",
-              "type": "string"
-            },
-            {
-              "id": "4d4cbf0d-874a-4ac8-ae95-06ca4fe516e5",
-              "name": "content",
-              "value": "={{ $json.content }}",
-              "type": "string"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.set",
-      "typeVersion": 3.4,
-      "position": [
-        -816,
-        -368
-      ],
-      "id": "c4903c99-97e5-4078-ba9a-ce10114054fa",
-      "name": "Simplify #help Messages"
-    },
-    {
-      "parameters": {
-        "assignments": {
-          "assignments": [
-            {
-              "id": "ceb5604b-05ff-404b-807b-dbf538f8d6f2",
-              "name": "time",
-              "value": "={{ $json.timestamp }}",
-              "type": "string"
-            },
-            {
-              "id": "c426a597-710b-440c-9d70-9e2cecf50746",
-              "name": "author",
-              "value": "={{ $json.author.global_name || `${$json.author.username} (BOT)` }}",
-              "type": "string"
-            },
-            {
-              "id": "4d4cbf0d-874a-4ac8-ae95-06ca4fe516e5",
-              "name": "content",
-              "value": "={{ $json.content }}",
-              "type": "string"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.set",
-      "typeVersion": 3.4,
-      "position": [
-        -816,
-        -560
-      ],
-      "id": "07698297-c4ee-4bf2-adad-cda7becb9629",
-      "name": "Simplify #main Messages"
-    },
-    {
-      "parameters": {
-        "jsCode": "const filterContent = (text, maxLength = 200) => {\n  const cleaned = text.replace(/[\\r\\n]+/g, '<br>');\n  return cleaned.length > maxLength\n    ? cleaned.slice(0, maxLength - 3) + '...'\n    : cleaned;\n};\n\nconst getAgo = (time) => {\n  const diff = new Date() - new Date(time);\n  const hours = Math.floor(diff / (1000 * 60 * 60));\n  const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));\n  return {hours, minutes};\n}\n\nconst lines = [];\n\nfor (const item of $input.all().reverse()) {\n  const { time, author, content } = item.json;\n  if (author == null || content == null || content == \"\") {\n    continue;\n  }\n  const { hours, minutes } = getAgo(time);\n  if (hours >= 24) {\n    continue;\n  }\n  const filtered = filterContent(content);\n  lines.push({\n    ago: `${hours}h${minutes}m`,\n    author: author,\n    content: filtered\n  })\n}\n\nreturn [{\n  json: {main: lines}\n}];"
-      },
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        -592,
-        -560
-      ],
-      "id": "21aa542d-672c-4aab-977f-8d783ae07c90",
-      "name": "Format #main Messages",
-      "executeOnce": false
-    },
-    {
-      "parameters": {
-        "jsCode": "const filterContent = (text, maxLength = 200) => {\n  const cleaned = text.replace(/[\\r\\n]+/g, '<br>');\n  return cleaned.length > maxLength\n    ? cleaned.slice(0, maxLength - 3) + '...'\n    : cleaned;\n};\n\nconst getAgo = (time) => {\n  const diff = new Date() - new Date(time);\n  const hours = Math.floor(diff / (1000 * 60 * 60));\n  const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));\n  return {hours, minutes};\n}\n\nconst lines = [];\n\nfor (const item of $input.all().reverse()) {\n  const { time, author, content } = item.json;\n  if (author == null || content == null || content == \"\") {\n    continue;\n  }\n  const { hours, minutes } = getAgo(time);\n  if (hours >= 24) {\n    continue;\n  }\n  const filtered = filterContent(content);\n  lines.push({\n    ago: `${hours}h${minutes}m`,\n    author: author,\n    content: filtered\n  })\n}\n\nreturn [{\n  json: {help: lines}\n}];"
-      },
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        -592,
-        -368
-      ],
-      "id": "557157d9-ab86-4558-b0d3-b4460ec09b69",
-      "name": "Format #help Messages",
-      "executeOnce": false
-    },
-    {
-      "parameters": {
-        "resource": "message",
-        "operation": "getAll",
-        "guildId": {
-          "__rl": true,
-          "value": "254623242914889729",
-          "mode": "list",
-          "cachedResultName": "🐰 BunnyKitty 🐰",
-          "cachedResultUrl": "https://discord.com/channels/254623242914889729"
-        },
-        "channelId": {
-          "__rl": true,
-          "value": "826950650410958920",
-          "mode": "list",
-          "cachedResultName": "main",
-          "cachedResultUrl": "https://discord.com/channels/254623242914889729/826950650410958920"
-        },
-        "limit": 50,
-        "options": {
-          "simplify": true
-        }
-      },
-      "type": "n8n-nodes-base.discord",
-      "typeVersion": 2,
-      "position": [
-        -1040,
-        -560
-      ],
-      "id": "3d94074c-1b39-4d99-8e75-9177504f1ca8",
-      "name": "Get #main Messages",
-      "webhookId": "fd9ea0f0-2d69-4764-a5f8-a01866629ea5",
-      "credentials": {
-        "discordBotApi": {
-          "id": "ng2YWjEby2jmXzo7",
-          "name": "Discord Bot account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "resource": "message",
-        "operation": "getAll",
-        "guildId": {
-          "__rl": true,
-          "value": "254623242914889729",
-          "mode": "list",
-          "cachedResultName": "🐰 BunnyKitty 🐰",
-          "cachedResultUrl": "https://discord.com/channels/254623242914889729"
-        },
-        "channelId": {
-          "__rl": true,
-          "value": "278157499851341825",
-          "mode": "list",
-          "cachedResultName": "help",
-          "cachedResultUrl": "https://discord.com/channels/254623242914889729/278157499851341825"
-        },
-        "limit": 50,
-        "options": {
-          "simplify": true
-        }
-      },
-      "type": "n8n-nodes-base.discord",
-      "typeVersion": 2,
-      "position": [
-        -1040,
-        -368
-      ],
-      "id": "727e8c33-7cd6-4f48-912f-cc3beeedaf6f",
-      "name": "Get #help Messages",
-      "webhookId": "fd9ea0f0-2d69-4764-a5f8-a01866629ea5",
-      "credentials": {
-        "discordBotApi": {
-          "id": "ng2YWjEby2jmXzo7",
-          "name": "Discord Bot account"
-        }
-      }
-    },
-    {
       "parameters": {},
       "type": "n8n-nodes-base.noOp",
       "typeVersion": 1,
       "position": [
         -1264,
-        -656
+        -960
       ],
       "id": "191253b1-92e9-4334-9ddd-e0299d7ae80e",
       "name": "No Operation, do nothing"
-    },
-    {
-      "parameters": {
-        "mode": "combine",
-        "combineBy": "combineByPosition",
-        "numberInputs": 4,
-        "options": {
-          "includeUnpaired": true
-        }
-      },
-      "type": "n8n-nodes-base.merge",
-      "typeVersion": 3.2,
-      "position": [
-        -368,
-        -688
-      ],
-      "id": "c8e7e69d-724c-4422-b388-d31d02089483",
-      "name": "Merge"
     },
     {
       "parameters": {
@@ -404,8 +151,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 1,
       "position": [
-        -816,
-        -944
+        -592,
+        -768
       ],
       "id": "930ae89a-5898-4b52-b3d3-146d91a0c889"
     },
@@ -418,11 +165,274 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        320,
-        -352
+        768,
+        -672
       ],
       "id": "82296f85-167e-443a-a7d5-f23d75f7f74f",
       "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "jsCode": "return [\n  {\n    json: {\n      server: '254623242914889729',\n      channels: [\n        {\n          name: 'main',\n          id: '826950650410958920'\n        },\n        {\n          name: 'help',\n          id: '278157499851341825'\n        }\n      ],\n      out: '826950650410958920'\n    },\n  },\n  {\n    json: {\n      server: '254623242914889729',\n      channels: [\n        {\n          name: 'underground',\n          id: '254623242914889729'\n        }\n      ],\n      out: '254623242914889729'\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1040,
+        -1152
+      ],
+      "id": "6b46cf61-654c-49b3-85ac-4047485755a7",
+      "name": "Channel Config"
+    },
+    {
+      "parameters": {
+        "jsCode": "const filterContent = (text, maxLength = 1000) => {\n  const cleaned = text.replace(/[\\r\\n]+/g, '<br>');\n  return cleaned.length > maxLength\n    ? cleaned.slice(0, maxLength - 3) + '...'\n    : cleaned;\n};\n\nconst getAgo = (time) => {\n  const diff = new Date() - new Date(time);\n  const hours = Math.floor(diff / (1000 * 60 * 60));\n  const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));\n  return { hours, minutes };\n};\n\nconst result = {};\nconst config = $('Channel Config').all();\nconst channelMap = {};\nfor (const {json} of config) {\n  for (const {name, id} of json.channels) {\n    channelMap[id] = name;\n    result[name] = [];\n  }\n}\n\nfor (const item of $input.all().reverse()) {\n\n  const {  channel_id, timestamp, content } = item.json;\n  const author = item.json.author.global_name || item.json.author.username;\n  if (!author || !content) continue;\n\n  const { hours, minutes } = getAgo(timestamp);\n  if (hours >= 20) continue;\n\n  const filtered = filterContent(content);\n  const channelName = channelMap[channel_id] || \"unknown\";\n\n  result[channelName].push({\n    ago: `${hours}h${minutes}m`,\n    author,\n    content: filtered\n  });\n}\n\nreturn [{\n  json: {\n    messages: result\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -368,
+        -1152
+      ],
+      "id": "557157d9-ab86-4558-b0d3-b4460ec09b69",
+      "name": "Format Messages",
+      "executeOnce": false
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "operation": "getAll",
+        "guildId": {
+          "__rl": true,
+          "value": "={{ $json.server }}",
+          "mode": "id"
+        },
+        "channelId": {
+          "__rl": true,
+          "value": "={{ $json.channels.id }}",
+          "mode": "id"
+        },
+        "limit": 50,
+        "options": {
+          "simplify": true
+        }
+      },
+      "type": "n8n-nodes-base.discord",
+      "typeVersion": 2,
+      "position": [
+        -592,
+        -1152
+      ],
+      "id": "727e8c33-7cd6-4f48-912f-cc3beeedaf6f",
+      "name": "Get Messages",
+      "webhookId": "fd9ea0f0-2d69-4764-a5f8-a01866629ea5",
+      "retryOnFail": false,
+      "executeOnce": false,
+      "credentials": {
+        "discordBotApi": {
+          "id": "ng2YWjEby2jmXzo7",
+          "name": "Discord Bot account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "numberInputs": 3,
+        "options": {
+          "includeUnpaired": true
+        }
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        -144,
+        -976
+      ],
+      "id": "c8e7e69d-724c-4422-b388-d31d02089483",
+      "name": "Merge Shared",
+      "executeOnce": true
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineAll",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        80,
+        -960
+      ],
+      "id": "23017140-de50-463b-bd8b-d979234b1599",
+      "name": "Seed Channels",
+      "retryOnFail": false,
+      "executeOnce": false
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "channels",
+        "include": "allOtherFields",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        -816,
+        -1152
+      ],
+      "id": "fde83eb1-9593-4856-b52b-db498b054176",
+      "name": "Split Out Channels"
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "guildId": {
+          "__rl": true,
+          "value": "={{ $json.config.server }}",
+          "mode": "id"
+        },
+        "channelId": {
+          "__rl": true,
+          "value": "={{ $json.config.out }}",
+          "mode": "id"
+        },
+        "options": {},
+        "embeds": {
+          "values": [
+            {
+              "inputMethod": "json",
+              "json": "={\n  \"title\": \"Latest Drama News\",\n  \"description\": {{ $json.content.toJsonString() }},\n  \"footer\": {\n    \"text\": \"${{ $json.cost || 0 }} ({{ $json.tokens.input }}t in, {{ $json.tokens.output - $json.tokens.reasoning }}/{{ $json.tokens.output }}t out)\"\n  },\n  \"allowed_mentions\": { \"parse\": [] },\n  \"color\": 16723502\n}\n"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.discord",
+      "typeVersion": 2,
+      "position": [
+        704,
+        -960
+      ],
+      "id": "f3531a53-9399-4cbb-86f8-44918be471f7",
+      "name": "Dispatch Drama",
+      "webhookId": "017a8361-4c62-4d78-b4a3-1b5385701d29",
+      "credentials": {
+        "discordBotApi": {
+          "id": "ng2YWjEby2jmXzo7",
+          "name": "Discord Bot account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "operation": "react",
+        "guildId": {
+          "__rl": true,
+          "value": "={{ $('Channel Config').item.json.server }}",
+          "mode": "id"
+        },
+        "channelId": {
+          "__rl": true,
+          "value": "={{ $json.channel_id }}",
+          "mode": "id"
+        },
+        "messageId": "={{ $json.id }}",
+        "emoji": "🔥"
+      },
+      "type": "n8n-nodes-base.discord",
+      "typeVersion": 2,
+      "position": [
+        928,
+        -1072
+      ],
+      "id": "ea577d02-d468-4d4b-a95d-dd6e3c2ec493",
+      "name": "React with 🔥",
+      "webhookId": "62a2dd65-30a5-4e83-83e3-306ea81beb21",
+      "credentials": {
+        "discordBotApi": {
+          "id": "ng2YWjEby2jmXzo7",
+          "name": "Discord Bot account"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "operation": "react",
+        "guildId": {
+          "__rl": true,
+          "value": "={{ $('Channel Config').item.json.server }}",
+          "mode": "id"
+        },
+        "channelId": {
+          "__rl": true,
+          "value": "={{ $json.channel_id }}",
+          "mode": "id"
+        },
+        "messageId": "={{ $json.id }}",
+        "emoji": "🥶"
+      },
+      "type": "n8n-nodes-base.discord",
+      "typeVersion": 2,
+      "position": [
+        928,
+        -880
+      ],
+      "id": "e9b60cc4-99cf-4f71-9479-88fdee3d96c5",
+      "name": "React with 🥶",
+      "webhookId": "62a2dd65-30a5-4e83-83e3-306ea81beb21",
+      "credentials": {
+        "discordBotApi": {
+          "id": "ng2YWjEby2jmXzo7",
+          "name": "Discord Bot account"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://openrouter.ai/api/v1/responses",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "openRouterApi",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "model",
+              "value": "anthropic/claude-sonnet-4.5"
+            },
+            {
+              "name": "input",
+              "value": "=Generate a **single-sentence** fictional drama with a blunt, chaotic tone, prioritizing the chat history for inspiration.\n\nCurrent time: {{ (new Date()).toLocaleTimeString() }}\n\n#### **INPUT SOURCES (PRIORITY ORDER)**\n\n**Format:**\n<Author1 (time ago)> Message content\n<Author2 (time ago)> Message content\n\n1. **CHAT HISTORY (PRIMARY SOURCE)**\n\n{{\n$json.channels\n  .map(channel => [channel.name, $json.messages[channel.name]])\n  .map(([channel, msgs]) => \n    `### #${channel} CHANNEL\\n` +\n    msgs\n      .map(it => `<${it.author} (${it.ago} ago)> ${it.content}`)\n      .join('\\n')\n  )\n  .join('\\n\\n')\n}}\n\n2. **FALLBACK EXAMPLES (ONLY IF CHAT IS BORING)**\n{{\n$json.dramas\n  .map(drama => `- ${drama}`)\n  .join('\\n')\n}}\n\n- **Scan for:** Fights, dumb takes, panic, or confusion.\n- **If multiple candidates:** Pick only the **stupidest/clusterfuck-iest one**.\n- **Only use ONE element** (e.g., \"config system is broken\" → ignore linked drama like \"x is sleeping again\").\n- **Never use first person or insert yourself**—comment on the drama, don’t participate in it.\n\n#### **RULES (NON-NEGOTIABLE)**\n1. **AVOID REPETITION** - Refrain from referencing examples from the rules itself (such as PM, CI) as this causes repetition.\n2. **NO DULL DRAMA** - When chat is boring or lacking in general, prefer using FALLBACK EXAMPLES for the drama. When using one of the fallback examples, use the example almost verbatim only fixing minor stylistic issues.\n3. **ONE TOPIC PER SENTENCE** – No \"and\", \"also\", or list-like drama.\n   - **BAD:** *\"Kamilkime hates DDD, CI is dead, and the PM ghosted us.\"*\n   - **GOOD:** *\"Kamilkime just deleted the ‘forge’ module screaming ‘YOLO’.\"*\n   - Keep the drama sentence length **100 characters or less**.\n\n4. **CHAOS MULTIPLIER** – Escalate the chosen topic with one or more of:\n   - Sabotage\n   - Public meltdowns\n   - Absurd lies\n\n5. **STYLE:** {{ $json.dramaStyle }}\n\n#### **OUTPUT FORMAT**\n1. **ISOLATE** one stupid/angry/confused moment from chat/examples.\n2. **NUKE IT** with invented chaos.\n3. **OUTPUT:** *Someone caused something spicy lorem ipsum dolor sit amet.*"
+            },
+            {
+              "name": "=reasoning",
+              "value": "={{ {effort: \"low\"} }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        288,
+        -960
+      ],
+      "id": "3d75322f-46f7-47f4-a308-99b2de619a7d",
+      "name": "Drama+AI",
+      "alwaysOutputData": false,
+      "credentials": {
+        "openRouterApi": {
+          "id": "e4D9LdgWoEY0nlVy",
+          "name": "OpenRouter account"
+        }
+      }
     }
   ],
   "pinData": {},
@@ -471,22 +481,11 @@
         ]
       ]
     },
-    "Generate drama (OpenAI)": {
-      "main": [
-        [
-          {
-            "node": "Extract AI Drama",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Generate Drama": {
       "main": [
         [
           {
-            "node": "Merge",
+            "node": "Merge Shared",
             "type": "main",
             "index": 1
           }
@@ -497,7 +496,7 @@
       "main": [
         [
           {
-            "node": "Dispatch webhook",
+            "node": "Dispatch Drama",
             "type": "main",
             "index": 0
           }
@@ -508,75 +507,9 @@
       "main": [
         [
           {
-            "node": "Merge",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Simplify #main Messages": {
-      "main": [
-        [
-          {
-            "node": "Format #main Messages",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Format #main Messages": {
-      "main": [
-        [
-          {
-            "node": "Merge",
+            "node": "Merge Shared",
             "type": "main",
             "index": 2
-          }
-        ]
-      ]
-    },
-    "Simplify #help Messages": {
-      "main": [
-        [
-          {
-            "node": "Format #help Messages",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Format #help Messages": {
-      "main": [
-        [
-          {
-            "node": "Merge",
-            "type": "main",
-            "index": 3
-          }
-        ]
-      ]
-    },
-    "Get #main Messages": {
-      "main": [
-        [
-          {
-            "node": "Simplify #main Messages",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Get #help Messages": {
-      "main": [
-        [
-          {
-            "node": "Simplify #help Messages",
-            "type": "main",
-            "index": 0
           }
         ]
       ]
@@ -584,16 +517,6 @@
     "No Operation, do nothing": {
       "main": [
         [
-          {
-            "node": "Get #help Messages",
-            "type": "main",
-            "index": 0
-          },
-          {
-            "node": "Get #main Messages",
-            "type": "main",
-            "index": 0
-          },
           {
             "node": "Fetch elements.json",
             "type": "main",
@@ -603,15 +526,9 @@
             "node": "Fetch styles.json",
             "type": "main",
             "index": 0
-          }
-        ]
-      ]
-    },
-    "Merge": {
-      "main": [
-        [
+          },
           {
-            "node": "Generate drama (OpenAI)",
+            "node": "Channel Config",
             "type": "main",
             "index": 0
           }
@@ -628,13 +545,112 @@
           }
         ]
       ]
+    },
+    "Channel Config": {
+      "main": [
+        [
+          {
+            "node": "Split Out Channels",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Seed Channels",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Messages": {
+      "main": [
+        [
+          {
+            "node": "Merge Shared",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Messages": {
+      "main": [
+        [
+          {
+            "node": "Format Messages",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge Shared": {
+      "main": [
+        [
+          {
+            "node": "Seed Channels",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Seed Channels": {
+      "main": [
+        [
+          {
+            "node": "Drama+AI",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out Channels": {
+      "main": [
+        [
+          {
+            "node": "Get Messages",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Dispatch Drama": {
+      "main": [
+        [
+          {
+            "node": "React with 🔥",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "React with 🥶",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Drama+AI": {
+      "main": [
+        [
+          {
+            "node": "Extract AI Drama",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": true,
   "settings": {
-    "saveDataSuccessExecution": "none"
+    "callerPolicy": "workflowsFromSameOwner",
+    "executionOrder": "v1"
   },
-  "versionId": "f81e5d7f-27e5-4142-a800-6d0b84ae54a6",
+  "versionId": "df7ee2bd-fe71-42bc-99a7-59a61055924b",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "772de366ee37d38fecf1632867a4a1a33b48224bf1f5e46d10b281fe6aeb4c19"
