@@ -200,32 +200,37 @@
     },
     {
       "parameters": {
-        "resource": "message",
-        "operation": "getAll",
-        "guildId": {
-          "__rl": true,
-          "value": "={{ $json.server }}",
-          "mode": "id"
+        "url": "=https://discord.com/api/v10/channels/{{ $json.channels.id }}/messages",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "discordBotApi",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "limit",
+              "value": "100"
+            }
+          ]
         },
-        "channelId": {
-          "__rl": true,
-          "value": "={{ $json.channels.id }}",
-          "mode": "id"
-        },
-        "limit": 50,
         "options": {
-          "simplify": true
+          "pagination": {
+            "pagination": {
+              "paginationMode": "responseContainsNextURL",
+              "nextURL": "={{ $response.body.length >= 100 ? 'https://discord.com/api/v10/channels/' + $json.channels.id + '/messages?limit=100&before=' + $response.body[$response.body.length - 1].id : '' }}",
+              "limitPagesFetched": true,
+              "maxRequests": 4
+            }
+          }
         }
       },
-      "type": "n8n-nodes-base.discord",
-      "typeVersion": 2,
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
       "position": [
         -592,
         -1152
       ],
-      "id": "727e8c33-7cd6-4f48-912f-cc3beeedaf6f",
+      "id": "6df1aef1-6735-45ad-9ccb-1d5db4b8e0dc",
       "name": "Get Messages",
-      "webhookId": "fd9ea0f0-2d69-4764-a5f8-a01866629ea5",
       "retryOnFail": false,
       "executeOnce": false,
       "credentials": {
@@ -404,7 +409,7 @@
           "parameters": [
             {
               "name": "model",
-              "value": "anthropic/claude-sonnet-4.5"
+              "value": "anthropic/claude-haiku-4.5"
             },
             {
               "name": "input",
