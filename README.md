@@ -7,6 +7,9 @@
 
 [n8n](https://n8n.io/) driven drama generator providing daily drama for Bookkity discord server. Now with generative AI slop.
 
+## LLM-enhanced version (v2.1)
+![workflow v2.1](flow.png)
+
 ## LLM-enhanced version (v2)
 ![workflow v2](https://github.com/user-attachments/assets/90824b2b-ca92-4dbb-8f87-5339845ba34f)
 
