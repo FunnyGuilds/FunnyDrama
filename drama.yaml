@@ -1,0 +1,676 @@
+name: drama.funnyguilds.net
+nodes:
+- parameters: {}
+  name: Start
+  type: n8n-nodes-base.start
+  typeVersion: 1
+  position:
+  - -576
+  - 80
+  id: dff29c17-4523-4f8b-be1a-a5e2f7b2bc18
+- parameters:
+    triggerTimes:
+      item:
+      - hour: 0
+        minute: 5
+  name: Cron
+  type: n8n-nodes-base.cron
+  typeVersion: 1
+  position:
+  - -576
+  - 272
+  id: cac7fb15-6d2d-467f-a5f9-f909f4765ac4
+- parameters:
+    url: https://raw.githubusercontent.com/FunnyGuilds/FunnyDrama/master/data/elements.json
+    options: {}
+  name: Fetch elements.json
+  type: n8n-nodes-base.httpRequest
+  typeVersion: 1
+  position:
+  - 96
+  - 176
+  id: 9079601c-7c75-454d-a2a5-5d5541fef9d6
+- parameters:
+    url: https://raw.githubusercontent.com/FunnyGuilds/FunnyDrama/master/data/sentences.json
+    options: {}
+  name: Fetch sentences.json
+  type: n8n-nodes-base.httpRequest
+  typeVersion: 1
+  position:
+  - 320
+  - 176
+  id: a7ea4074-5cb9-42bb-802e-c8e6c8b70283
+- parameters:
+    jsCode: |-
+      // noinspection PointlessBitwiseExpressionJS
+
+      const sentences = $("Fetch sentences.json").first().json;
+      const elements = $("Fetch elements.json").first().json;
+      const fieldPattern = /\[(?<name>[a-zA-Z0-9_]+)\]/;
+
+      const alreadyUsed = [];
+
+      const createDrama = () => {
+
+        let sentence = sentences[Math.random() * sentences.length | 0];
+        let matcher;
+        
+        while ((matcher = fieldPattern.exec(sentence)) !== null) {
+        
+            const fieldFull = matcher[0];
+            const fieldType = matcher[1];
+        
+            if (!(fieldType in elements)) {
+                return {sentence: `Unknown element type: ${fieldType}`}
+            }
+        
+            let randomValue;
+            do {
+                randomValue = elements[fieldType][Math.random() * elements[fieldType].length | 0];
+            }
+            while (randomValue in alreadyUsed);
+        
+            alreadyUsed.push(randomValue);
+            sentence = sentence.replace(fieldFull, randomValue);
+        }
+
+        return sentence;
+      }
+
+      return {
+        json: {
+          dramas: Array.from({ length: 10 }, createDrama)
+        }
+      };
+  type: n8n-nodes-base.code
+  typeVersion: 2
+  position:
+  - 544
+  - 176
+  id: 3bdf926e-1606-4894-9ad2-8a22a129e08b
+  name: Generate Drama
+  executeOnce: false
+- parameters:
+    assignments:
+      assignments:
+      - id: f9d5d320-3a19-4607-a764-10f32f5e28ce
+        name: config
+        value: ={{ $('Channel Config').item.json }}
+        type: object
+      - id: 88a8a7a9-3bb8-4adc-b0b6-79c7552db592
+        name: content
+        value: ={{ $json.output[1].content[0].text }}
+        type: string
+      - id: 090620a9-bb2f-4ac2-9f3d-a8d5749449fb
+        name: cost
+        value: ={{ $json.usage.cost }}
+        type: number
+      - id: f22b148a-93fa-436c-851d-38a7c11368b1
+        name: tokens
+        value: |-
+          ={
+          input: {{ $json.usage.input_tokens }},
+          cached: {{ $json.usage.input_tokens_details.cached_tokens }},
+          output: {{ $json.usage.output_tokens }},
+          reasoning: {{ $json.usage.output_tokens_details.reasoning_tokens }}
+          }
+        type: object
+    options: {}
+  type: n8n-nodes-base.set
+  typeVersion: 3.4
+  position:
+  - 1408
+  - 176
+  id: 89293b6d-ef47-42bf-b198-7365854bfaf5
+  name: Extract AI Drama
+- parameters:
+    mode: runOnceForEachItem
+    jsCode: |-
+      return {json: {
+        dramaStyle: $json[Math.floor(Math.random() * $json.length)]
+      }};
+  type: n8n-nodes-base.code
+  typeVersion: 2
+  position:
+  - 544
+  - 368
+  id: 5c513990-ed39-4b8a-a8f6-726497243a11
+  name: Generate Style
+  alwaysOutputData: true
+  executeOnce: true
+- parameters: {}
+  type: n8n-nodes-base.noOp
+  typeVersion: 1
+  position:
+  - -352
+  - 176
+  id: a12813cb-5a4e-48fe-ba58-d898d76b471b
+  name: No Operation, do nothing
+- parameters:
+    url: https://raw.githubusercontent.com/FunnyGuilds/FunnyDrama/master/data/styles.json
+    options: {}
+  name: Fetch styles.json
+  type: n8n-nodes-base.httpRequest
+  typeVersion: 1
+  position:
+  - 320
+  - 368
+  id: ad8e2fbc-2692-4316-81e4-4bf3197626b9
+- parameters:
+    content: |-
+      # By Sandræ :3
+      Made with ignorance and prayers.
+    height: 96
+    width: 256
+  type: n8n-nodes-base.stickyNote
+  typeVersion: 1
+  position:
+  - 1680
+  - 464
+  id: 63fa4cda-4d93-42a6-8638-29033cea733b
+  name: Sticky Note
+- parameters:
+    jsCode: |-
+      return [
+        {
+          json: {
+            server: '254623242914889729',
+            channels: [
+              {
+                name: 'main',
+                id: '826950650410958920'
+              },
+              {
+                name: 'help',
+                id: '278157499851341825'
+              }
+            ],
+            out: '826950650410958920'
+          },
+        },
+        {
+          json: {
+            server: '254623242914889729',
+            channels: [
+              {
+                name: 'underground',
+                id: '254623242914889729'
+              }
+            ],
+            out: '254623242914889729'
+          }
+        }
+      ];
+  type: n8n-nodes-base.code
+  typeVersion: 2
+  position:
+  - -128
+  - -16
+  id: 2f28114d-ddf5-417b-97ca-b56a17751063
+  name: Channel Config
+- parameters:
+    jsCode: |
+      const filterContent = (text, maxLength = 1000) => {
+          const cleaned = text.replace(/[\r\n]+/g, '<br>');
+          return cleaned.length > maxLength
+              ? cleaned.slice(0, maxLength - 3) + '...'
+              : cleaned;
+      };
+
+      const getAgo = (time) => {
+          const diff = new Date() - new Date(time);
+          const hours = Math.floor(diff / (1000 * 60 * 60));
+          const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+          return { hours, minutes };
+      };
+
+      const result = {};
+      const config = $('Channel Config').all();
+      const channelMap = {};
+      const lastAgoTimestamp = {}; // Track last timestamp where we showed ago per channel
+      for (const {json} of config) {
+          for (const {name, id} of json.channels) {
+              channelMap[id] = name;
+              result[name] = [];
+              lastAgoTimestamp[name] = null;
+          }
+      }
+
+      for (const item of $input.all().reverse()) {
+
+          const {  channel_id, timestamp, content } = item.json;
+          const author = item.json.author.global_name || item.json.author.username;
+          if (!author || !content) continue;
+
+          const { hours, minutes } = getAgo(timestamp);
+          if (hours >= 20) continue;
+
+          const filtered = filterContent(content);
+          const channelName = channelMap[channel_id] || "unknown";
+
+          const channelMessages = result[channelName];
+          const lastMessage = channelMessages[channelMessages.length - 1];
+
+          // Check if we should merge with the last message
+          if (lastMessage && lastMessage.author === author) {
+              const timeDiff = new Date(timestamp) - new Date(lastMessage.timestamp);
+              const minutesDiff = timeDiff / (1000 * 60);
+
+              if (minutesDiff >= 0 && minutesDiff <= 5) {
+                  // Merge with previous message
+                  lastMessage.content += '\n' + filtered;
+                  lastMessage.timestamp = timestamp; // Update to latest timestamp
+                  continue;
+              }
+          }
+
+          // Determine if we should show ago
+          let showAgo = false;
+          if (lastAgoTimestamp[channelName] === null) {
+              showAgo = true; // First message in channel
+          } else {
+              const timeSinceLastAgo = (new Date(timestamp) - new Date(lastAgoTimestamp[channelName])) / (1000 * 60);
+              showAgo = timeSinceLastAgo >= 15;
+          }
+
+          // Add as new message
+          const newMessage = {
+              author,
+              content: filtered,
+              timestamp
+          };
+
+          if (showAgo) {
+              newMessage.ago = `${hours}h${minutes}m`;
+              lastAgoTimestamp[channelName] = timestamp;
+          }
+
+          channelMessages.push(newMessage);
+      }
+
+      // Remove timestamp field from final output
+      for (const channelName in result) {
+          result[channelName] = result[channelName].map(msg => {
+              const output = {
+                  author: msg.author,
+                  content: msg.content
+              };
+              if (msg.ago) {
+                  output.ago = msg.ago;
+              }
+              return output;
+          });
+      }
+
+      return [{
+          json: {
+              messages: result
+          }
+      }];
+  type: n8n-nodes-base.code
+  typeVersion: 2
+  position:
+  - 544
+  - -16
+  id: f4c99f64-6d28-438b-bcd8-729fcbc556ee
+  name: Format Messages
+  executeOnce: false
+- parameters:
+    url: =https://discord.com/api/v10/channels/{{ $json.channels.id }}/messages
+    authentication: predefinedCredentialType
+    nodeCredentialType: discordBotApi
+    sendQuery: true
+    queryParameters:
+      parameters:
+      - name: limit
+        value: '100'
+    options:
+      pagination:
+        pagination:
+          paginationMode: responseContainsNextURL
+          nextURL: "={{ $response.body.length >= 100 ? 'https://discord.com/api/v10/channels/' + $json.channels.id + '/messages?limit=100&before=' + $response.body[$response.body.length - 1].id : '' }}"
+          limitPagesFetched: true
+          maxRequests: 4
+  type: n8n-nodes-base.httpRequest
+  typeVersion: 4.2
+  position:
+  - 320
+  - -16
+  id: 6df1aef1-6735-45ad-9ccb-1d5db4b8e0dc
+  name: Get Messages
+  retryOnFail: false
+  executeOnce: false
+  credentials:
+    discordBotApi:
+      id: ng2YWjEby2jmXzo7
+      name: Discord Bot account
+- parameters:
+    mode: combine
+    combineBy: combineByPosition
+    numberInputs: 3
+    options:
+      includeUnpaired: true
+  type: n8n-nodes-base.merge
+  typeVersion: 3.2
+  position:
+  - 768
+  - 160
+  id: 00564eb1-1c99-41fd-a85d-49a3eddabc2a
+  name: Merge Shared
+  executeOnce: true
+- parameters:
+    mode: combine
+    combineBy: combineAll
+    options: {}
+  type: n8n-nodes-base.merge
+  typeVersion: 3.2
+  position:
+  - 992
+  - 176
+  id: ac7fa0a4-e327-431b-ac61-c7d513e40666
+  name: Seed Channels
+  retryOnFail: false
+  executeOnce: false
+- parameters:
+    fieldToSplitOut: channels
+    include: allOtherFields
+    options: {}
+  type: n8n-nodes-base.splitOut
+  typeVersion: 1
+  position:
+  - 96
+  - -16
+  id: d8dbc603-2981-4eb1-be51-97c3eb2c687c
+  name: Split Out Channels
+- parameters:
+    resource: message
+    guildId:
+      __rl: true
+      value: ={{ $json.config.server }}
+      mode: id
+    channelId:
+      __rl: true
+      value: ={{ $json.config.out }}
+      mode: id
+    options: {}
+    embeds:
+      values:
+      - inputMethod: json
+        json: |
+          ={
+            "title": "Latest Drama News",
+            "description": {{ $json.content.toJsonString() }},
+            "footer": {
+              "text": "${{ $json.cost || 0 }} ({{ $json.tokens.input }}t in, {{ $json.tokens.output - $json.tokens.reasoning }}/{{ $json.tokens.output }}t out)"
+            },
+            "allowed_mentions": { "parse": [] },
+            "color": 16723502
+          }
+  type: n8n-nodes-base.discord
+  typeVersion: 2
+  position:
+  - 1616
+  - 176
+  id: dd212de7-17e3-4dce-95a0-3b72cabeaef7
+  name: Dispatch Drama
+  webhookId: 017a8361-4c62-4d78-b4a3-1b5385701d29
+  credentials:
+    discordBotApi:
+      id: ng2YWjEby2jmXzo7
+      name: Discord Bot account
+- parameters:
+    resource: message
+    operation: react
+    guildId:
+      __rl: true
+      value: ={{ $('Channel Config').item.json.server }}
+      mode: id
+    channelId:
+      __rl: true
+      value: ={{ $json.channel_id }}
+      mode: id
+    messageId: ={{ $json.id }}
+    emoji: 🔥
+  type: n8n-nodes-base.discord
+  typeVersion: 2
+  position:
+  - 1840
+  - 64
+  id: 9bb82788-1a17-4b7d-846d-40fc650f9df2
+  name: React with 🔥
+  webhookId: 62a2dd65-30a5-4e83-83e3-306ea81beb21
+  credentials:
+    discordBotApi:
+      id: ng2YWjEby2jmXzo7
+      name: Discord Bot account
+  disabled: true
+- parameters:
+    resource: message
+    operation: react
+    guildId:
+      __rl: true
+      value: ={{ $('Channel Config').item.json.server }}
+      mode: id
+    channelId:
+      __rl: true
+      value: ={{ $json.channel_id }}
+      mode: id
+    messageId: ={{ $json.id }}
+    emoji: 🥶
+  type: n8n-nodes-base.discord
+  typeVersion: 2
+  position:
+  - 1840
+  - 256
+  id: 49c73623-5757-4318-8df1-1bba0536d4c3
+  name: React with 🥶
+  webhookId: 62a2dd65-30a5-4e83-83e3-306ea81beb21
+  credentials:
+    discordBotApi:
+      id: ng2YWjEby2jmXzo7
+      name: Discord Bot account
+  disabled: true
+- parameters:
+    method: POST
+    url: https://openrouter.ai/api/v1/responses
+    authentication: predefinedCredentialType
+    nodeCredentialType: openRouterApi
+    sendBody: true
+    bodyParameters:
+      parameters:
+      - name: model
+        value: anthropic/claude-opus-4.5
+      - name: input
+        value: |-
+          =Generate a **single-sentence** fictional drama with a blunt, chaotic tone, prioritizing the chat history for inspiration.
+
+          Current time: {{ new Intl.DateTimeFormat('en-CA', {
+            timeZone: 'Europe/Warsaw',
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: false
+          }).format(new Date()).replace(',', '') }}
+
+          #### **INPUT SOURCES (PRIORITY ORDER)**
+
+          **Format:**
+          Author1 (time ago): Message content
+          Author2: Message content
+          (time shown only every 15min)
+
+          1. **CHAT HISTORY (PRIMARY SOURCE)**
+
+          {{
+          $json.channels
+            .map(channel => [channel.name, $json.messages[channel.name]])
+            .map(([channel, msgs]) => 
+              `### #${channel} CHANNEL\n` +
+              msgs
+                .map(it => {
+                  const agoStr = it.ago ? ` (${it.ago})` : '';
+                  return `${it.author}${agoStr}: ${it.content}`;
+                })
+                .join('\n')
+            )
+            .join('\n\n')
+          }}
+
+          2. **FALLBACK EXAMPLES (ONLY IF CHAT IS BORING)**
+          {{
+          $json.dramas
+            .map(drama => `- ${drama}`)
+            .join('\n')
+          }}
+
+          - **Scan for:** Fights, dumb takes, panic, or confusion.
+          - **If multiple candidates:** Pick only the **stupidest/clusterfuck-iest one**.
+          - **Only use ONE element** (e.g., "config system is broken" → ignore linked drama like "x is sleeping again").
+          - **Never use first person or insert yourself**—comment on the drama, don’t participate in it.
+
+          #### **RULES (NON-NEGOTIABLE)**
+          1. **AVOID REPETITION** - Refrain from referencing examples from the rules itself (such as PM, CI) as this causes repetition.
+          2. **NO DULL DRAMA** - When chat is boring or lacking in general, prefer using FALLBACK EXAMPLES for the drama. When using one of the fallback examples, use the example almost verbatim only fixing minor stylistic issues.
+          3. **ONE TOPIC PER SENTENCE** – No "and", "also", or list-like drama.
+             - **BAD:** Kamilkime hates DDD, CI is dead, and the PM ghosted us.
+             - **GOOD:** Kamilkime just deleted the ‘forge’ module screaming ‘YOLO’.
+             - Keep the drama sentence length **relatively short**.
+          4. **NO RECENCY BIAS** - Choose the best drama, not the most recent one.
+
+          4. **CHAOS MULTIPLIER** – Escalate the chosen topic with one or more of:
+             - Sabotage
+             - Public meltdowns
+             - Absurd lies
+
+          5. **STYLE:** {{ $json.dramaStyle }}
+
+          #### **OUTPUT FORMAT**
+          1. **ISOLATE** one stupid/angry/confused moment from chat/examples.
+          2. **NUKE IT** with invented chaos.
+          3. **OUTPUT (NO FANCY FORMATTING):** Someone caused something spicy lorem ipsum dolor sit amet.
+      - name: =reasoning
+        value: '={{ {effort: "minimal"} }}'
+    options: {}
+  type: n8n-nodes-base.httpRequest
+  typeVersion: 4.2
+  position:
+  - 1200
+  - 176
+  id: 47ac2b03-277c-473b-b0a0-9c190780d3b3
+  name: Drama+AI
+  alwaysOutputData: false
+  credentials:
+    openRouterApi:
+      id: e4D9LdgWoEY0nlVy
+      name: OpenRouter account
+pinData: {}
+connections:
+  Start:
+    main:
+    - - node: No Operation, do nothing
+        type: main
+        index: 0
+  Cron:
+    main:
+    - - node: No Operation, do nothing
+        type: main
+        index: 0
+  Fetch elements.json:
+    main:
+    - - node: Fetch sentences.json
+        type: main
+        index: 0
+  Fetch sentences.json:
+    main:
+    - - node: Generate Drama
+        type: main
+        index: 0
+  Generate Drama:
+    main:
+    - - node: Merge Shared
+        type: main
+        index: 1
+  Extract AI Drama:
+    main:
+    - - node: Dispatch Drama
+        type: main
+        index: 0
+  Generate Style:
+    main:
+    - - node: Merge Shared
+        type: main
+        index: 2
+  No Operation, do nothing:
+    main:
+    - - node: Fetch elements.json
+        type: main
+        index: 0
+      - node: Fetch styles.json
+        type: main
+        index: 0
+      - node: Channel Config
+        type: main
+        index: 0
+  Fetch styles.json:
+    main:
+    - - node: Generate Style
+        type: main
+        index: 0
+  Channel Config:
+    main:
+    - - node: Split Out Channels
+        type: main
+        index: 0
+      - node: Seed Channels
+        type: main
+        index: 0
+  Format Messages:
+    main:
+    - - node: Merge Shared
+        type: main
+        index: 0
+  Get Messages:
+    main:
+    - - node: Format Messages
+        type: main
+        index: 0
+  Merge Shared:
+    main:
+    - - node: Seed Channels
+        type: main
+        index: 1
+  Seed Channels:
+    main:
+    - - node: Drama+AI
+        type: main
+        index: 0
+  Split Out Channels:
+    main:
+    - - node: Get Messages
+        type: main
+        index: 0
+  Dispatch Drama:
+    main:
+    - - node: React with 🔥
+        type: main
+        index: 0
+      - node: React with 🥶
+        type: main
+        index: 0
+  Drama+AI:
+    main:
+    - - node: Extract AI Drama
+        type: main
+        index: 0
+active: true
+settings:
+  callerPolicy: workflowsFromSameOwner
+  executionOrder: v1
+versionId: df9912da-42f8-459d-a085-159159308de6
+meta:
+  templateCredsSetupCompleted: true
+  instanceId: 772de366ee37d38fecf1632867a4a1a33b48224bf1f5e46d10b281fe6aeb4c19
+id: '34'
+tags: []
