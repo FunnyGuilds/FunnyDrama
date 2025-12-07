@@ -7,10 +7,10 @@
       "type": "n8n-nodes-base.start",
       "typeVersion": 1,
       "position": [
-        -1488,
-        -1056
+        -576,
+        80
       ],
-      "id": "f54a016a-11cb-4dd8-9906-9f372e2075ef"
+      "id": "dff29c17-4523-4f8b-be1a-a5e2f7b2bc18"
     },
     {
       "parameters": {
@@ -27,10 +27,10 @@
       "type": "n8n-nodes-base.cron",
       "typeVersion": 1,
       "position": [
-        -1488,
-        -864
+        -576,
+        272
       ],
-      "id": "47a7c1ed-6bd1-43f9-aae0-2d38f02e99fa"
+      "id": "cac7fb15-6d2d-467f-a5f9-f909f4765ac4"
     },
     {
       "parameters": {
@@ -41,10 +41,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 1,
       "position": [
-        -816,
-        -960
+        96,
+        176
       ],
-      "id": "9eaacbec-ad22-4efb-b1a6-c0facbdb9a3b"
+      "id": "9079601c-7c75-454d-a2a5-5d5541fef9d6"
     },
     {
       "parameters": {
@@ -55,10 +55,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 1,
       "position": [
-        -592,
-        -960
+        320,
+        176
       ],
-      "id": "4babfbef-099c-4ae4-9d69-17f0996075ce"
+      "id": "a7ea4074-5cb9-42bb-802e-c8e6c8b70283"
     },
     {
       "parameters": {
@@ -67,10 +67,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -368,
-        -960
+        544,
+        176
       ],
-      "id": "673517b5-0719-4b20-b8c5-1c78dc3e507a",
+      "id": "3bdf926e-1606-4894-9ad2-8a22a129e08b",
       "name": "Generate Drama",
       "executeOnce": false
     },
@@ -109,10 +109,10 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        496,
-        -960
+        1408,
+        176
       ],
-      "id": "0b11af05-0902-4aa7-9a69-fb9bd90e0529",
+      "id": "89293b6d-ef47-42bf-b198-7365854bfaf5",
       "name": "Extract AI Drama"
     },
     {
@@ -123,10 +123,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -368,
-        -768
+        544,
+        368
       ],
-      "id": "91a5ec4b-1489-46c4-bd4e-c80eba423c64",
+      "id": "5c513990-ed39-4b8a-a8f6-726497243a11",
       "name": "Generate Style",
       "alwaysOutputData": true,
       "executeOnce": true
@@ -136,10 +136,10 @@
       "type": "n8n-nodes-base.noOp",
       "typeVersion": 1,
       "position": [
-        -1264,
-        -960
+        -352,
+        176
       ],
-      "id": "191253b1-92e9-4334-9ddd-e0299d7ae80e",
+      "id": "a12813cb-5a4e-48fe-ba58-d898d76b471b",
       "name": "No Operation, do nothing"
     },
     {
@@ -151,10 +151,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 1,
       "position": [
-        -592,
-        -768
+        320,
+        368
       ],
-      "id": "930ae89a-5898-4b52-b3d3-146d91a0c889"
+      "id": "ad8e2fbc-2692-4316-81e4-4bf3197626b9"
     },
     {
       "parameters": {
@@ -165,10 +165,10 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        768,
-        -672
+        1680,
+        464
       ],
-      "id": "82296f85-167e-443a-a7d5-f23d75f7f74f",
+      "id": "63fa4cda-4d93-42a6-8638-29033cea733b",
       "name": "Sticky Note"
     },
     {
@@ -178,23 +178,23 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -1040,
-        -1152
+        -128,
+        -16
       ],
-      "id": "6b46cf61-654c-49b3-85ac-4047485755a7",
+      "id": "2f28114d-ddf5-417b-97ca-b56a17751063",
       "name": "Channel Config"
     },
     {
       "parameters": {
-        "jsCode": "const filterContent = (text, maxLength = 1000) => {\n  const cleaned = text.replace(/[\\r\\n]+/g, '<br>');\n  return cleaned.length > maxLength\n    ? cleaned.slice(0, maxLength - 3) + '...'\n    : cleaned;\n};\n\nconst getAgo = (time) => {\n  const diff = new Date() - new Date(time);\n  const hours = Math.floor(diff / (1000 * 60 * 60));\n  const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));\n  return { hours, minutes };\n};\n\nconst result = {};\nconst config = $('Channel Config').all();\nconst channelMap = {};\nfor (const {json} of config) {\n  for (const {name, id} of json.channels) {\n    channelMap[id] = name;\n    result[name] = [];\n  }\n}\n\nfor (const item of $input.all().reverse()) {\n\n  const {  channel_id, timestamp, content } = item.json;\n  const author = item.json.author.global_name || item.json.author.username;\n  if (!author || !content) continue;\n\n  const { hours, minutes } = getAgo(timestamp);\n  if (hours >= 20) continue;\n\n  const filtered = filterContent(content);\n  const channelName = channelMap[channel_id] || \"unknown\";\n\n  result[channelName].push({\n    ago: `${hours}h${minutes}m`,\n    author,\n    content: filtered\n  });\n}\n\nreturn [{\n  json: {\n    messages: result\n  }\n}];"
+        "jsCode": "const filterContent = (text, maxLength = 1000) => {\n    const cleaned = text.replace(/[\\r\\n]+/g, '<br>');\n    return cleaned.length > maxLength\n        ? cleaned.slice(0, maxLength - 3) + '...'\n        : cleaned;\n};\n\nconst getAgo = (time) => {\n    const diff = new Date() - new Date(time);\n    const hours = Math.floor(diff / (1000 * 60 * 60));\n    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));\n    return { hours, minutes };\n};\n\nconst result = {};\nconst config = $('Channel Config').all();\nconst channelMap = {};\nconst lastAgoTimestamp = {}; // Track last timestamp where we showed ago per channel\nfor (const {json} of config) {\n    for (const {name, id} of json.channels) {\n        channelMap[id] = name;\n        result[name] = [];\n        lastAgoTimestamp[name] = null;\n    }\n}\n\nfor (const item of $input.all().reverse()) {\n\n    const {  channel_id, timestamp, content } = item.json;\n    const author = item.json.author.global_name || item.json.author.username;\n    if (!author || !content) continue;\n\n    const { hours, minutes } = getAgo(timestamp);\n    if (hours >= 20) continue;\n\n    const filtered = filterContent(content);\n    const channelName = channelMap[channel_id] || \"unknown\";\n\n    const channelMessages = result[channelName];\n    const lastMessage = channelMessages[channelMessages.length - 1];\n\n    // Check if we should merge with the last message\n    if (lastMessage && lastMessage.author === author) {\n        const timeDiff = new Date(timestamp) - new Date(lastMessage.timestamp);\n        const minutesDiff = timeDiff / (1000 * 60);\n\n        if (minutesDiff >= 0 && minutesDiff <= 5) {\n            // Merge with previous message\n            lastMessage.content += '\\n' + filtered;\n            lastMessage.timestamp = timestamp; // Update to latest timestamp\n            continue;\n        }\n    }\n\n    // Determine if we should show ago\n    let showAgo = false;\n    if (lastAgoTimestamp[channelName] === null) {\n        showAgo = true; // First message in channel\n    } else {\n        const timeSinceLastAgo = (new Date(timestamp) - new Date(lastAgoTimestamp[channelName])) / (1000 * 60);\n        showAgo = timeSinceLastAgo >= 15;\n    }\n\n    // Add as new message\n    const newMessage = {\n        author,\n        content: filtered,\n        timestamp\n    };\n\n    if (showAgo) {\n        newMessage.ago = `${hours}h${minutes}m`;\n        lastAgoTimestamp[channelName] = timestamp;\n    }\n\n    channelMessages.push(newMessage);\n}\n\n// Remove timestamp field from final output\nfor (const channelName in result) {\n    result[channelName] = result[channelName].map(msg => {\n        const output = {\n            author: msg.author,\n            content: msg.content\n        };\n        if (msg.ago) {\n            output.ago = msg.ago;\n        }\n        return output;\n    });\n}\n\nreturn [{\n    json: {\n        messages: result\n    }\n}];\n"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -368,
-        -1152
+        544,
+        -16
       ],
-      "id": "557157d9-ab86-4558-b0d3-b4460ec09b69",
+      "id": "f4c99f64-6d28-438b-bcd8-729fcbc556ee",
       "name": "Format Messages",
       "executeOnce": false
     },
@@ -226,8 +226,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -592,
-        -1152
+        320,
+        -16
       ],
       "id": "6df1aef1-6735-45ad-9ccb-1d5db4b8e0dc",
       "name": "Get Messages",
@@ -252,10 +252,10 @@
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3.2,
       "position": [
-        -144,
-        -976
+        768,
+        160
       ],
-      "id": "c8e7e69d-724c-4422-b388-d31d02089483",
+      "id": "00564eb1-1c99-41fd-a85d-49a3eddabc2a",
       "name": "Merge Shared",
       "executeOnce": true
     },
@@ -268,10 +268,10 @@
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3.2,
       "position": [
-        80,
-        -960
+        992,
+        176
       ],
-      "id": "23017140-de50-463b-bd8b-d979234b1599",
+      "id": "ac7fa0a4-e327-431b-ac61-c7d513e40666",
       "name": "Seed Channels",
       "retryOnFail": false,
       "executeOnce": false
@@ -285,10 +285,10 @@
       "type": "n8n-nodes-base.splitOut",
       "typeVersion": 1,
       "position": [
-        -816,
-        -1152
+        96,
+        -16
       ],
-      "id": "fde83eb1-9593-4856-b52b-db498b054176",
+      "id": "d8dbc603-2981-4eb1-be51-97c3eb2c687c",
       "name": "Split Out Channels"
     },
     {
@@ -317,10 +317,10 @@
       "type": "n8n-nodes-base.discord",
       "typeVersion": 2,
       "position": [
-        704,
-        -960
+        1616,
+        176
       ],
-      "id": "f3531a53-9399-4cbb-86f8-44918be471f7",
+      "id": "dd212de7-17e3-4dce-95a0-3b72cabeaef7",
       "name": "Dispatch Drama",
       "webhookId": "017a8361-4c62-4d78-b4a3-1b5385701d29",
       "credentials": {
@@ -350,10 +350,10 @@
       "type": "n8n-nodes-base.discord",
       "typeVersion": 2,
       "position": [
-        928,
-        -1072
+        1840,
+        64
       ],
-      "id": "ea577d02-d468-4d4b-a95d-dd6e3c2ec493",
+      "id": "9bb82788-1a17-4b7d-846d-40fc650f9df2",
       "name": "React with 🔥",
       "webhookId": "62a2dd65-30a5-4e83-83e3-306ea81beb21",
       "credentials": {
@@ -384,10 +384,10 @@
       "type": "n8n-nodes-base.discord",
       "typeVersion": 2,
       "position": [
-        928,
-        -880
+        1840,
+        256
       ],
-      "id": "e9b60cc4-99cf-4f71-9479-88fdee3d96c5",
+      "id": "49c73623-5757-4318-8df1-1bba0536d4c3",
       "name": "React with 🥶",
       "webhookId": "62a2dd65-30a5-4e83-83e3-306ea81beb21",
       "credentials": {
@@ -409,15 +409,15 @@
           "parameters": [
             {
               "name": "model",
-              "value": "anthropic/claude-haiku-4.5"
+              "value": "anthropic/claude-opus-4.5"
             },
             {
               "name": "input",
-              "value": "=Generate a **single-sentence** fictional drama with a blunt, chaotic tone, prioritizing the chat history for inspiration.\n\nCurrent time: {{ (new Date()).toLocaleTimeString() }}\n\n#### **INPUT SOURCES (PRIORITY ORDER)**\n\n**Format:**\n<Author1 (time ago)> Message content\n<Author2 (time ago)> Message content\n\n1. **CHAT HISTORY (PRIMARY SOURCE)**\n\n{{\n$json.channels\n  .map(channel => [channel.name, $json.messages[channel.name]])\n  .map(([channel, msgs]) => \n    `### #${channel} CHANNEL\\n` +\n    msgs\n      .map(it => `<${it.author} (${it.ago} ago)> ${it.content}`)\n      .join('\\n')\n  )\n  .join('\\n\\n')\n}}\n\n2. **FALLBACK EXAMPLES (ONLY IF CHAT IS BORING)**\n{{\n$json.dramas\n  .map(drama => `- ${drama}`)\n  .join('\\n')\n}}\n\n- **Scan for:** Fights, dumb takes, panic, or confusion.\n- **If multiple candidates:** Pick only the **stupidest/clusterfuck-iest one**.\n- **Only use ONE element** (e.g., \"config system is broken\" → ignore linked drama like \"x is sleeping again\").\n- **Never use first person or insert yourself**—comment on the drama, don’t participate in it.\n\n#### **RULES (NON-NEGOTIABLE)**\n1. **AVOID REPETITION** - Refrain from referencing examples from the rules itself (such as PM, CI) as this causes repetition.\n2. **NO DULL DRAMA** - When chat is boring or lacking in general, prefer using FALLBACK EXAMPLES for the drama. When using one of the fallback examples, use the example almost verbatim only fixing minor stylistic issues.\n3. **ONE TOPIC PER SENTENCE** – No \"and\", \"also\", or list-like drama.\n   - **BAD:** *\"Kamilkime hates DDD, CI is dead, and the PM ghosted us.\"*\n   - **GOOD:** *\"Kamilkime just deleted the ‘forge’ module screaming ‘YOLO’.\"*\n   - Keep the drama sentence length **100 characters or less**.\n\n4. **CHAOS MULTIPLIER** – Escalate the chosen topic with one or more of:\n   - Sabotage\n   - Public meltdowns\n   - Absurd lies\n\n5. **STYLE:** {{ $json.dramaStyle }}\n\n#### **OUTPUT FORMAT**\n1. **ISOLATE** one stupid/angry/confused moment from chat/examples.\n2. **NUKE IT** with invented chaos.\n3. **OUTPUT:** *Someone caused something spicy lorem ipsum dolor sit amet.*"
+              "value": "=Generate a **single-sentence** fictional drama with a blunt, chaotic tone, prioritizing the chat history for inspiration.\n\nCurrent time: {{ new Intl.DateTimeFormat('en-CA', {\n  timeZone: 'Europe/Warsaw',\n  year: 'numeric',\n  month: '2-digit',\n  day: '2-digit',\n  hour: '2-digit',\n  minute: '2-digit',\n  hour12: false\n}).format(new Date()).replace(',', '') }}\n\n#### **INPUT SOURCES (PRIORITY ORDER)**\n\n**Format:**\nAuthor1 (time ago): Message content\nAuthor2: Message content\n(time shown only every 15min)\n\n1. **CHAT HISTORY (PRIMARY SOURCE)**\n\n{{\n$json.channels\n  .map(channel => [channel.name, $json.messages[channel.name]])\n  .map(([channel, msgs]) => \n    `### #${channel} CHANNEL\\n` +\n    msgs\n      .map(it => {\n        const agoStr = it.ago ? ` (${it.ago})` : '';\n        return `${it.author}${agoStr}: ${it.content}`;\n      })\n      .join('\\n')\n  )\n  .join('\\n\\n')\n}}\n\n2. **FALLBACK EXAMPLES (ONLY IF CHAT IS BORING)**\n{{\n$json.dramas\n  .map(drama => `- ${drama}`)\n  .join('\\n')\n}}\n\n- **Scan for:** Fights, dumb takes, panic, or confusion.\n- **If multiple candidates:** Pick only the **stupidest/clusterfuck-iest one**.\n- **Only use ONE element** (e.g., \"config system is broken\" → ignore linked drama like \"x is sleeping again\").\n- **Never use first person or insert yourself**—comment on the drama, don’t participate in it.\n\n#### **RULES (NON-NEGOTIABLE)**\n1. **AVOID REPETITION** - Refrain from referencing examples from the rules itself (such as PM, CI) as this causes repetition.\n2. **NO DULL DRAMA** - When chat is boring or lacking in general, prefer using FALLBACK EXAMPLES for the drama. When using one of the fallback examples, use the example almost verbatim only fixing minor stylistic issues.\n3. **ONE TOPIC PER SENTENCE** – No \"and\", \"also\", or list-like drama.\n   - **BAD:** Kamilkime hates DDD, CI is dead, and the PM ghosted us.\n   - **GOOD:** Kamilkime just deleted the ‘forge’ module screaming ‘YOLO’.\n   - Keep the drama sentence length **relatively short**.\n4. **NO RECENCY BIAS** - Choose the best drama, not the most recent one.\n\n4. **CHAOS MULTIPLIER** – Escalate the chosen topic with one or more of:\n   - Sabotage\n   - Public meltdowns\n   - Absurd lies\n\n5. **STYLE:** {{ $json.dramaStyle }}\n\n#### **OUTPUT FORMAT**\n1. **ISOLATE** one stupid/angry/confused moment from chat/examples.\n2. **NUKE IT** with invented chaos.\n3. **OUTPUT (NO FANCY FORMATTING):** Someone caused something spicy lorem ipsum dolor sit amet."
             },
             {
               "name": "=reasoning",
-              "value": "={{ {effort: \"low\"} }}"
+              "value": "={{ {effort: \"minimal\"} }}"
             }
           ]
         },
@@ -426,10 +426,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        288,
-        -960
+        1200,
+        176
       ],
-      "id": "3d75322f-46f7-47f4-a308-99b2de619a7d",
+      "id": "47ac2b03-277c-473b-b0a0-9c190780d3b3",
       "name": "Drama+AI",
       "alwaysOutputData": false,
       "credentials": {
@@ -655,7 +655,7 @@
     "callerPolicy": "workflowsFromSameOwner",
     "executionOrder": "v1"
   },
-  "versionId": "df7ee2bd-fe71-42bc-99a7-59a61055924b",
+  "versionId": "df9912da-42f8-459d-a085-159159308de6",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "772de366ee37d38fecf1632867a4a1a33b48224bf1f5e46d10b281fe6aeb4c19"
