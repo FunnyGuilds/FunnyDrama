@@ -1,13 +1,12 @@
-name: drama.funnyguilds.net
 nodes:
 - parameters: {}
   name: Start
   type: n8n-nodes-base.start
   typeVersion: 1
   position:
-  - -576
-  - 80
-  id: dff29c17-4523-4f8b-be1a-a5e2f7b2bc18
+  - -1184
+  - -224
+  id: b6427238-8bb3-4d07-9477-dc4694fcee6d
 - parameters:
     triggerTimes:
       item:
@@ -17,9 +16,9 @@ nodes:
   type: n8n-nodes-base.cron
   typeVersion: 1
   position:
-  - -576
-  - 272
-  id: cac7fb15-6d2d-467f-a5f9-f909f4765ac4
+  - -1184
+  - -32
+  id: 091c2cde-14f2-4912-bf1e-512221c4fc0e
 - parameters:
     url: https://raw.githubusercontent.com/FunnyGuilds/FunnyDrama/master/data/elements.json
     options: {}
@@ -27,9 +26,9 @@ nodes:
   type: n8n-nodes-base.httpRequest
   typeVersion: 1
   position:
-  - 96
-  - 176
-  id: 9079601c-7c75-454d-a2a5-5d5541fef9d6
+  - -512
+  - -128
+  id: 1c3d604c-dcc1-46ec-ad52-4164060a18a2
 - parameters:
     url: https://raw.githubusercontent.com/FunnyGuilds/FunnyDrama/master/data/sentences.json
     options: {}
@@ -37,9 +36,9 @@ nodes:
   type: n8n-nodes-base.httpRequest
   typeVersion: 1
   position:
-  - 320
-  - 176
-  id: a7ea4074-5cb9-42bb-802e-c8e6c8b70283
+  - -288
+  - -128
+  id: 6ec650d0-5450-4c63-9ef4-90ba4bb00ff6
 - parameters:
     jsCode: |-
       // noinspection PointlessBitwiseExpressionJS
@@ -85,9 +84,9 @@ nodes:
   type: n8n-nodes-base.code
   typeVersion: 2
   position:
-  - 544
-  - 176
-  id: 3bdf926e-1606-4894-9ad2-8a22a129e08b
+  - -64
+  - -128
+  id: 00ea2b2f-ca4c-4575-9fd4-780c9b7a0dd2
   name: Generate Drama
   executeOnce: false
 - parameters:
@@ -115,13 +114,17 @@ nodes:
           reasoning: {{ $json.usage.output_tokens_details.reasoning_tokens }}
           }
         type: object
+      - id: f2adc1c9-b552-48d3-95f3-636db2370046
+        name: reasoning_url
+        value: ={{ $json.reasoning_url }}
+        type: string
     options: {}
   type: n8n-nodes-base.set
   typeVersion: 3.4
   position:
-  - 1408
-  - 176
-  id: 89293b6d-ef47-42bf-b198-7365854bfaf5
+  - 1008
+  - -128
+  id: b2abfeed-9162-4d7a-bc44-f0b1794cf071
   name: Extract AI Drama
 - parameters:
     mode: runOnceForEachItem
@@ -132,9 +135,9 @@ nodes:
   type: n8n-nodes-base.code
   typeVersion: 2
   position:
-  - 544
-  - 368
-  id: 5c513990-ed39-4b8a-a8f6-726497243a11
+  - -64
+  - 80
+  id: a505c2cf-a0ef-4115-a351-50c629568861
   name: Generate Style
   alwaysOutputData: true
   executeOnce: true
@@ -142,9 +145,9 @@ nodes:
   type: n8n-nodes-base.noOp
   typeVersion: 1
   position:
-  - -352
-  - 176
-  id: a12813cb-5a4e-48fe-ba58-d898d76b471b
+  - -960
+  - -128
+  id: bf2396b0-c290-41d7-b3fb-d83bb4a2e78f
   name: No Operation, do nothing
 - parameters:
     url: https://raw.githubusercontent.com/FunnyGuilds/FunnyDrama/master/data/styles.json
@@ -153,9 +156,9 @@ nodes:
   type: n8n-nodes-base.httpRequest
   typeVersion: 1
   position:
-  - 320
-  - 368
-  id: ad8e2fbc-2692-4316-81e4-4bf3197626b9
+  - -288
+  - 80
+  id: 5a39eaa7-f292-496d-94e9-132d3024b100
 - parameters:
     content: |-
       # By Sandræ :3
@@ -165,9 +168,9 @@ nodes:
   type: n8n-nodes-base.stickyNote
   typeVersion: 1
   position:
-  - 1680
-  - 464
-  id: 63fa4cda-4d93-42a6-8638-29033cea733b
+  - 1280
+  - 176
+  id: be722860-b9cd-4f00-8b1d-5cd04728236e
   name: Sticky Note
 - parameters:
     jsCode: |-
@@ -204,9 +207,9 @@ nodes:
   type: n8n-nodes-base.code
   typeVersion: 2
   position:
-  - -128
-  - -16
-  id: 2f28114d-ddf5-417b-97ca-b56a17751063
+  - -736
+  - -320
+  id: 62da842a-0494-4924-a057-52d44c904cad
   name: Channel Config
 - parameters:
     jsCode: |
@@ -310,9 +313,9 @@ nodes:
   type: n8n-nodes-base.code
   typeVersion: 2
   position:
-  - 544
-  - -16
-  id: f4c99f64-6d28-438b-bcd8-729fcbc556ee
+  - -64
+  - -320
+  id: 4448ed9c-b939-4e77-861b-165e041fff0d
   name: Format Messages
   executeOnce: false
 - parameters:
@@ -334,9 +337,9 @@ nodes:
   type: n8n-nodes-base.httpRequest
   typeVersion: 4.2
   position:
-  - 320
-  - -16
-  id: 6df1aef1-6735-45ad-9ccb-1d5db4b8e0dc
+  - -288
+  - -320
+  id: 617ff2b8-8c88-410c-8c42-60e1c896cca6
   name: Get Messages
   retryOnFail: false
   executeOnce: false
@@ -353,9 +356,9 @@ nodes:
   type: n8n-nodes-base.merge
   typeVersion: 3.2
   position:
-  - 768
-  - 160
-  id: 00564eb1-1c99-41fd-a85d-49a3eddabc2a
+  - 176
+  - -144
+  id: d9523cf5-c7e2-4777-8faf-cc7f82b2ef7c
   name: Merge Shared
   executeOnce: true
 - parameters:
@@ -365,9 +368,9 @@ nodes:
   type: n8n-nodes-base.merge
   typeVersion: 3.2
   position:
-  - 992
-  - 176
-  id: ac7fa0a4-e327-431b-ac61-c7d513e40666
+  - 400
+  - -128
+  id: 803078fa-1e40-44ec-8210-00d267b72e04
   name: Seed Channels
   retryOnFail: false
   executeOnce: false
@@ -378,9 +381,9 @@ nodes:
   type: n8n-nodes-base.splitOut
   typeVersion: 1
   position:
-  - 96
-  - -16
-  id: d8dbc603-2981-4eb1-be51-97c3eb2c687c
+  - -512
+  - -320
+  id: c0d5e9e2-0950-435e-9654-1b62f7598f9e
   name: Split Out Channels
 - parameters:
     resource: message
@@ -396,12 +399,13 @@ nodes:
     embeds:
       values:
       - inputMethod: json
-        json: |
+        json: |-
           ={
             "title": "Latest Drama News",
+            "url": {{ $json.reasoning_url }},
             "description": {{ $json.content.toJsonString() }},
             "footer": {
-              "text": "${{ $json.cost || 0 }} ({{ $json.tokens.input }}t in, {{ $json.tokens.output - $json.tokens.reasoning }}/{{ $json.tokens.output }}t out)"
+            "text": "${{ $json.cost || 0 }} ({{ $json.tokens.input }}t in, {{ $json.tokens.output - $json.tokens.reasoning }}/{{ $json.tokens.output }}t out)"
             },
             "allowed_mentions": { "parse": [] },
             "color": 16723502
@@ -409,9 +413,9 @@ nodes:
   type: n8n-nodes-base.discord
   typeVersion: 2
   position:
-  - 1616
-  - 176
-  id: dd212de7-17e3-4dce-95a0-3b72cabeaef7
+  - 1216
+  - -128
+  id: 81dea437-61ee-4d68-9dfb-697b19a7afe1
   name: Dispatch Drama
   webhookId: 017a8361-4c62-4d78-b4a3-1b5385701d29
   credentials:
@@ -434,9 +438,9 @@ nodes:
   type: n8n-nodes-base.discord
   typeVersion: 2
   position:
-  - 1840
-  - 64
-  id: 9bb82788-1a17-4b7d-846d-40fc650f9df2
+  - 1440
+  - -240
+  id: 3fbf5b60-4cd5-4196-a56c-ca9eca30b9b1
   name: React with 🔥
   webhookId: 62a2dd65-30a5-4e83-83e3-306ea81beb21
   credentials:
@@ -460,9 +464,9 @@ nodes:
   type: n8n-nodes-base.discord
   typeVersion: 2
   position:
-  - 1840
-  - 256
-  id: 49c73623-5757-4318-8df1-1bba0536d4c3
+  - 1440
+  - -48
+  id: 6f76586a-eeee-4399-bc65-adec46d00df1
   name: React with 🥶
   webhookId: 62a2dd65-30a5-4e83-83e3-306ea81beb21
   credentials:
@@ -589,16 +593,53 @@ nodes:
   type: n8n-nodes-base.httpRequest
   typeVersion: 4.2
   position:
-  - 1200
-  - 176
-  id: 47ac2b03-277c-473b-b0a0-9c190780d3b3
+  - 608
+  - -128
+  id: cb55a8de-badb-4175-92f4-894e8ed53b89
   name: Drama+AI
   alwaysOutputData: false
   credentials:
     openRouterApi:
       id: e4D9LdgWoEY0nlVy
       name: OpenRouter account
-pinData: {}
+- parameters:
+    mode: runOnceForEachItem
+    jsCode: |-
+      const FormData = require('form-data');
+      const axios = require('axios');
+
+      // Upload reasoning to microbin
+      const reasoningText = $input.item.json.output[0].content[0].text;
+
+      const formData = new FormData();
+      formData.append('content', reasoningText);
+      formData.append('expiration', 'never');
+      formData.append('syntax_highlight', 'none');
+      formData.append('privacy', 'public');
+      formData.append('uploader_password', 'YOUR_UPLOADER_PASSWORD');
+      formData.append('file', '');
+      formData.append('random_key', '');
+      formData.append('plain_key', '');
+
+      const response = await axios.post('https://bin.oksh.re/upload', formData, {
+        headers: formData.getHeaders(),
+        maxRedirects: 0,
+        validateStatus: () => true
+      });
+
+      return {
+        json: {
+          ...$input.item.json,
+          reasoning_url: response.headers.location
+        }
+      };
+  id: e91fc725-d3c2-43ee-bba2-f978fa8c7b7c
+  name: Upload Reasoning
+  type: n8n-nodes-base.code
+  typeVersion: 2
+  position:
+  - 800
+  - -128
 connections:
   Start:
     main:
@@ -694,16 +735,15 @@ connections:
         index: 0
   Drama+AI:
     main:
+    - - node: Upload Reasoning
+        type: main
+        index: 0
+  Upload Reasoning:
+    main:
     - - node: Extract AI Drama
         type: main
         index: 0
-active: true
-settings:
-  callerPolicy: workflowsFromSameOwner
-  executionOrder: v1
-versionId: df9912da-42f8-459d-a085-159159308de6
+pinData: {}
 meta:
   templateCredsSetupCompleted: true
   instanceId: 772de366ee37d38fecf1632867a4a1a33b48224bf1f5e46d10b281fe6aeb4c19
-id: '34'
-tags: []
