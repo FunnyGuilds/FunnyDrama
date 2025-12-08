@@ -630,7 +630,7 @@ nodes:
       return {
         json: {
           ...$input.item.json,
-          reasoning_url: response.headers.location
+          reasoning_url: `${response.headers.location}.md` // Custom renderer
         }
       };
   id: e91fc725-d3c2-43ee-bba2-f978fa8c7b7c
