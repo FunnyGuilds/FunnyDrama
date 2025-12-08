@@ -615,11 +615,11 @@ nodes:
       formData.append('content', reasoningText);
       formData.append('expiration', 'never');
       formData.append('syntax_highlight', 'none');
-      formData.append('privacy', 'public');
+      formData.append('privacy', 'readonly');
       formData.append('uploader_password', 'YOUR_UPLOADER_PASSWORD');
+      formData.append('plain_key', 'YOUR_UPLOADER_PASSWORD');
       formData.append('file', '');
       formData.append('random_key', '');
-      formData.append('plain_key', '');
 
       const response = await axios.post('https://bin.oksh.re/upload', formData, {
         headers: formData.getHeaders(),
