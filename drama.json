@@ -314,7 +314,7 @@
           "values": [
             {
               "inputMethod": "json",
-              "json": "={\n  \"title\": \"Latest Drama News\",\n  \"url\": {{ $json.reasoning_url }},\n  \"description\": {{ $json.content.toJsonString() }},\n  \"footer\": {\n  \"text\": \"${{ $json.cost || 0 }} ({{ $json.tokens.input }}t in, {{ $json.tokens.output - $json.tokens.reasoning }}/{{ $json.tokens.output }}t out)\"\n  },\n  \"allowed_mentions\": { \"parse\": [] },\n  \"color\": 16723502\n}"
+              "json": "={\n  \"title\": \"Latest Drama News\",\n  \"url\": {{ $json.reasoning_url.toJsonString() }},\n  \"description\": {{ $json.content.toJsonString() }},\n  \"footer\": {\n  \"text\": \"${{ $json.cost || 0 }} ({{ $json.tokens.input }}t in, {{ $json.tokens.output - $json.tokens.reasoning }}/{{ $json.tokens.output }}t out)\"\n  },\n  \"allowed_mentions\": { \"parse\": [] },\n  \"color\": 16723502\n}"
             }
           ]
         }

@@ -402,7 +402,7 @@ nodes:
         json: |-
           ={
             "title": "Latest Drama News",
-            "url": {{ $json.reasoning_url }},
+            "url": {{ $json.reasoning_url.toJsonString() }},
             "description": {{ $json.content.toJsonString() }},
             "footer": {
             "text": "${{ $json.cost || 0 }} ({{ $json.tokens.input }}t in, {{ $json.tokens.output - $json.tokens.reasoning }}/{{ $json.tokens.output }}t out)"
