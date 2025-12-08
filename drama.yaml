@@ -482,7 +482,7 @@ nodes:
         value: anthropic/claude-opus-4.5
       - name: input
         value: |-
-          =Generate a **single-sentence** fictional drama with a blunt, chaotic tone, prioritizing the chat history for inspiration.
+          =Generate a **short, punchy** fictional drama statement with a blunt, chaotic tone, prioritizing the chat history for inspiration.
 
           Current time: {{ new Intl.DateTimeFormat('en-CA', {
             timeZone: 'Europe/Warsaw',
@@ -525,19 +525,22 @@ nodes:
             .join('\n')
           }}
 
-          - **Scan for:** Fights, dumb takes, panic, or confusion.
-          - **If multiple candidates:** Pick only the **stupidest/clusterfuck-iest one**.
-          - **Only use ONE element** (e.g., "config system is broken" → ignore linked drama like "x is sleeping again").
-          - **Never use first person or insert yourself**—comment on the drama, don’t participate in it.
+          #### **DRAMA SELECTION CRITERIA**
+          - **Scan for:** Fights, dumb takes, panic, confusion, or general clusterfuck moments.
+          - **Final output uses ONE drama element** (e.g., "config system is broken" → ignore linked drama like "x is sleeping again").
+          - **Never use first person or insert yourself**—comment on the drama, don't participate in it.
 
           #### **RULES (NON-NEGOTIABLE)**
           1. **AVOID REPETITION** - Refrain from referencing examples from the rules itself (such as PM, CI) as this causes repetition.
           2. **NO DULL DRAMA** - When chat is boring or lacking in general, prefer using FALLBACK EXAMPLES for the drama. When using one of the fallback examples, use the example almost verbatim only fixing minor stylistic issues.
-          3. **ONE TOPIC PER SENTENCE** – No "and", "also", or list-like drama.
+          3. **ONE TOPIC ONLY** – No "and", "also", or list-like drama.
              - **BAD:** Kamilkime hates DDD, CI is dead, and the PM ghosted us.
-             - **GOOD:** Kamilkime just deleted the ‘forge’ module screaming ‘YOLO’.
-             - Keep the drama sentence length **relatively short**.
-          4. **NO RECENCY BIAS** - Choose the best drama, not the most recent one.
+             - **GOOD:** Kamilkime just deleted the 'forge' module screaming 'YOLO'.
+             - **EXCEPTION (style-dependent):**
+               - If the style requires multiple elements that can't fit in one topic, you may combine topics
+               - If the style has a specific format (like greentext with multiple ">be me" lines), follow that format instead
+             - Keep it **concise** - don't waste words.
+          4. **NO RECENCY BIAS** - Don't prioritize recent messages—the spiciest drama could be anywhere in the chat history.
 
           4. **CHAOS MULTIPLIER** – Escalate the chosen topic with one or more of:
              - Sabotage
@@ -546,10 +549,40 @@ nodes:
 
           5. **STYLE:** {{ $json.dramaStyle }}
 
+          #### **GENERATION WORKFLOW**
+
+          Follow this multi-step process to ensure maximum quality:
+
+          1. **IDENTIFY CANDIDATES**
+             - Scan chat history and fallback examples for spicy moments
+             - List the top 3 candidates (fights, dumb takes, panic, confusion, clusterfucks)
+             - Each candidate should be ONE distinct drama element/topic
+             - If fewer than 3 exist, reuse the best one with different chaos approaches
+
+          2. **GENERATE 3 VERSIONS**
+             - For each candidate, write one complete drama
+             - Apply the style requirement ({{ $json.dramaStyle }})
+             - Use different chaos multipliers: sabotage, public meltdowns, or absurd lies
+             - Keep each version focused on ONE topic (no "and" or lists)
+
+          3. **EVALUATE & SELECT**
+             - Compare all 3 versions against the rules
+             - Rate each on: spiciness, style accuracy, chaos level, rule compliance
+             - Pick the winner that maximizes all criteria
+             - Explain your choice briefly
+
+          4. **REFINE**
+             - Take the winning version and polish it
+             - Ensure maximum impact while staying concise
+             - Verify: no fancy formatting, ONE topic only
+             - Final check against all rules
+
           #### **OUTPUT FORMAT**
-          1. **ISOLATE** one stupid/angry/confused moment from chat/examples.
-          2. **NUKE IT** with invented chaos.
-          3. **OUTPUT (NO FANCY FORMATTING):** Someone caused something spicy lorem ipsum dolor sit amet.
+          After completing the workflow above, output ONLY the final refined drama.
+          - NO thinking tags in output
+          - NO fancy formatting (bold, italics, etc.)
+          - NO explanations or metadata
+          - Just the raw drama, concise and punchy
       - name: =reasoning
         value: '={{ {effort: "minimal"} }}'
     options: {}
