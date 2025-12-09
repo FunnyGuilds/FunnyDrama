@@ -608,11 +608,23 @@ nodes:
       const FormData = require('form-data');
       const axios = require('axios');
 
-      // Upload reasoning to microbin
-      const reasoningText = $input.item.json.output[0].content[0].text;
+      const content = `
+      > ${$('Generate Style').item.json.dramaStyle}
+
+      ${$input.item.json.output[0].content[0].text}
+
+      > ${$input.item.json.output[1].content[0].text}
+
+      |               | Value |
+      |---------------|-------|
+      | **Input**     | ${$input.item.json.usage.input_tokens} tokens |
+      | **Reasoning** | ${$input.item.json.usage.output_tokens_details.reasoning_tokens} tokens |
+      | **Output**    | ${$input.item.json.usage.output_tokens - $input.item.json.usage.output_tokens_details.reasoning_tokens} tokens |
+      | **Damage**    | $${$input.item.json.usage.cost || 0} |
+      `;
 
       const formData = new FormData();
-      formData.append('content', reasoningText);
+      formData.append('content', content);
       formData.append('expiration', 'never');
       formData.append('syntax_highlight', 'none');
       formData.append('privacy', 'readonly');
