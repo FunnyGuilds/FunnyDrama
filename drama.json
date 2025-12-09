@@ -90,6 +90,12 @@
               "type": "string"
             },
             {
+              "id": "492d0732-9396-42f9-8f50-55aa95fd6cad",
+              "name": "model",
+              "value": "={{ $json.model }}",
+              "type": "string"
+            },
+            {
               "id": "090620a9-bb2f-4ac2-9f3d-a8d5749449fb",
               "name": "cost",
               "value": "={{ $json.usage.cost }}",
@@ -314,7 +320,7 @@
           "values": [
             {
               "inputMethod": "json",
-              "json": "={\n  \"title\": \"Latest Drama News\",\n  \"url\": {{ $json.reasoning_url.toJsonString() }},\n  \"description\": {{ $json.content.toJsonString() }},\n  \"footer\": {\n  \"text\": \"${{ $json.cost || 0 }} ({{ $json.tokens.input }}t in, {{ $json.tokens.output - $json.tokens.reasoning }}/{{ $json.tokens.output }}t out)\"\n  },\n  \"allowed_mentions\": { \"parse\": [] },\n  \"color\": 16723502\n}"
+              "json": "={\n  \"title\": \"Latest Drama News\",\n  \"url\": {{ $json.reasoning_url.toJsonString() }},\n  \"description\": {{ $json.content.toJsonString() }},\n  \"footer\": {\n  \"text\": \"${{ $json.cost || 0 }} ({{ $json.tokens.input }}t in, {{ $json.tokens.output - $json.tokens.reasoning }}/{{ $json.tokens.output }}t out) • {{ $json.model }}\"\n  },\n  \"allowed_mentions\": { \"parse\": [] },\n  \"color\": 16723502\n}"
             }
           ]
         }
@@ -447,7 +453,7 @@
     {
       "parameters": {
         "mode": "runOnceForEachItem",
-        "jsCode": "const FormData = require('form-data');\nconst axios = require('axios');\n\nconst content = `\n> 📜 ${$('Generate Style').item.json.dramaStyle} [\\[styles.json\\]](https://github.com/FunnyGuilds/FunnyDrama/blob/master/data/styles.json)\n\n## Reasoning\n---\n${$input.item.json.output[0].content[0].text}\n\n## Output\n---\n${$input.item.json.output[1].content[0].text}\n\n## Metrics\n|               | Value |\n|---------------|-------|\n| **Input**     | ${$input.item.json.usage.input_tokens} tokens |\n| **Reasoning** | ${$input.item.json.usage.output_tokens_details.reasoning_tokens} tokens |\n| **Output**    | ${$input.item.json.usage.output_tokens - $input.item.json.usage.output_tokens_details.reasoning_tokens} tokens |\n| **Damage**    | $${$input.item.json.usage.cost || 0} |\n`;\n\nconst formData = new FormData();\nformData.append('content', content);\nformData.append('expiration', 'never');\nformData.append('syntax_highlight', 'none');\nformData.append('privacy', 'readonly');\nformData.append('uploader_password', 'YOUR_UPLOADER_PASSWORD');\nformData.append('plain_key', 'YOUR_UPLOADER_PASSWORD');\nformData.append('file', '');\nformData.append('random_key', '');\n\nconst response = await axios.post('https://bin.oksh.re/upload', formData, {\n  headers: formData.getHeaders(),\n  maxRedirects: 0,\n  validateStatus: () => true\n});\n\nreturn {\n  json: {\n    ...$input.item.json,\n    reasoning_url: `${response.headers.location}.md#ai` // Custom renderer\n  }\n};"
+        "jsCode": "const FormData = require('form-data');\nconst axios = require('axios');\n\nconst content = `\n> 📜 ${$('Generate Style').item.json.dramaStyle} [\\[styles.json\\]](https://github.com/FunnyGuilds/FunnyDrama/blob/master/data/styles.json)\n\n## Reasoning\n---\n${$input.item.json.output[0].content[0].text}\n\n## Output\n---\n${$input.item.json.output[1].content[0].text}\n\n## Metrics\n|               | Value |\n|---------------|-------|\n| **Model**     | ${$input.item.json.model} |\n| **Input**     | ${$input.item.json.usage.input_tokens} tokens |\n| **Reasoning** | ${$input.item.json.usage.output_tokens_details.reasoning_tokens} tokens |\n| **Output**    | ${$input.item.json.usage.output_tokens - $input.item.json.usage.output_tokens_details.reasoning_tokens} tokens |\n| **Damage**    | $${$input.item.json.usage.cost || 0} |\n`;\n\nconst formData = new FormData();\nformData.append('content', content);\nformData.append('expiration', 'never');\nformData.append('syntax_highlight', 'none');\nformData.append('privacy', 'readonly');\nformData.append('uploader_password', 'YOUR_UPLOADER_PASSWORD');\nformData.append('plain_key', 'YOUR_UPLOADER_PASSWORD');\nformData.append('file', '');\nformData.append('random_key', '');\n\nconst response = await axios.post('https://bin.oksh.re/upload', formData, {\n  headers: formData.getHeaders(),\n  maxRedirects: 0,\n  validateStatus: () => true\n});\n\nreturn {\n  json: {\n    ...$input.item.json,\n    reasoning_url: `${response.headers.location}.md#ai` // Custom renderer\n  }\n};"
       },
       "id": "e91fc725-d3c2-43ee-bba2-f978fa8c7b7c",
       "name": "Upload Reasoning",
