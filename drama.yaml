@@ -609,12 +609,16 @@ nodes:
       const axios = require('axios');
 
       const content = `
+      ## Style
       > ${$('Generate Style').item.json.dramaStyle}
 
+      ## Reasoning
       ${$input.item.json.output[0].content[0].text}
 
+      ## Output
       > ${$input.item.json.output[1].content[0].text}
 
+      ## Metrics
       |               | Value |
       |---------------|-------|
       | **Input**     | ${$input.item.json.usage.input_tokens} tokens |
