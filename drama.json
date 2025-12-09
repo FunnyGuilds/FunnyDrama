@@ -184,7 +184,7 @@
     },
     {
       "parameters": {
-        "jsCode": "return [\n  {\n    json: {\n      server: '254623242914889729',\n      channels: [\n        {\n          name: 'main',\n          id: '826950650410958920'\n        },\n        {\n          name: 'help',\n          id: '278157499851341825'\n        }\n      ],\n      out: '826950650410958920'\n    },\n  },\n  {\n    json: {\n      server: '254623242914889729',\n      channels: [\n        {\n          name: 'underground',\n          id: '254623242914889729'\n        }\n      ],\n      out: '254623242914889729'\n    }\n  }\n];"
+        "jsCode": "return [\n  {\n    json: {\n      model: 'anthropic/claude-opus-4.5',\n      server: '254623242914889729',\n      channels: [\n        {\n          name: 'main',\n          id: '826950650410958920'\n        },\n        {\n          name: 'help',\n          id: '278157499851341825'\n        }\n      ],\n      out: '826950650410958920'\n    },\n  },\n  {\n    json: {\n      model: 'anthropic/claude-opus-4.5',\n      server: '254623242914889729',\n      channels: [\n        {\n          name: 'underground',\n          id: '254623242914889729'\n        }\n      ],\n      out: '254623242914889729'\n    }\n  }\n];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -420,7 +420,7 @@
           "parameters": [
             {
               "name": "model",
-              "value": "anthropic/claude-opus-4.5"
+              "value": "={{ $json.model }}"
             },
             {
               "name": "input",

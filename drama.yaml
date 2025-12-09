@@ -181,6 +181,7 @@ nodes:
       return [
         {
           json: {
+            model: 'anthropic/claude-opus-4.5',
             server: '254623242914889729',
             channels: [
               {
@@ -197,6 +198,7 @@ nodes:
         },
         {
           json: {
+            model: 'anthropic/claude-opus-4.5',
             server: '254623242914889729',
             channels: [
               {
@@ -487,7 +489,7 @@ nodes:
     bodyParameters:
       parameters:
       - name: model
-        value: anthropic/claude-opus-4.5
+        value: ={{ $json.model }}
       - name: input
         value: |-
           =Generate a **short, punchy** fictional drama statement with a blunt, chaotic tone, prioritizing the chat history for inspiration.
