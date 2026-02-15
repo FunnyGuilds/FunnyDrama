@@ -186,7 +186,7 @@ nodes:
       return [
         {
           json: {
-            model: 'anthropic/claude-opus-4.5',
+            model: 'anthropic/claude-opus-4.6',
             server: '254623242914889729',
             channels: [
               {
@@ -203,7 +203,7 @@ nodes:
         },
         {
           json: {
-            model: 'anthropic/claude-opus-4.5',
+            model: 'anthropic/claude-opus-4.6',
             server: '254623242914889729',
             channels: [
               {
@@ -597,9 +597,10 @@ nodes:
           - NO thinking tags in output
           - NO fancy formatting (bold, italics, etc.)
           - NO explanations or metadata
+          - **Tweet-length.** If the style demands a specific format (e.g., greentext, AITA), keep it to the shortest version that still lands.
           - Just the raw drama, concise and punchy
       - name: =reasoning
-        value: '={{ {effort: "minimal"} }}'
+        value: '={{ {effort: "low"} }}'
     options: {}
   type: n8n-nodes-base.httpRequest
   typeVersion: 4.2
