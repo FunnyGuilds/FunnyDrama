@@ -98,7 +98,7 @@ nodes:
         type: object
       - id: 88a8a7a9-3bb8-4adc-b0b6-79c7552db592
         name: content
-        value: ={{ $json.output[1].content[0].text }}
+        value: ={{ $json.output.find(b => b.type === 'message').content[0].text }}
         type: string
       - id: 492d0732-9396-42f9-8f50-55aa95fd6cad
         name: model
@@ -625,11 +625,11 @@ nodes:
 
       ## Reasoning
       ---
-      ${$input.item.json.output[0].content[0].text}
+      ${$input.item.json.output.find(b => b.type === 'reasoning').content[0].text}
 
       ## Output
       ---
-      ${$input.item.json.output[1].content[0].text}
+      ${$input.item.json.output.find(b => b.type === 'message').content[0].text}
 
       ## Metrics
       |               | Value |
